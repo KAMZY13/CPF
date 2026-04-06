@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comfort Precinct Organisation</title>
+
+  <!-- Inter for body text (highly readable), Playfair Display for headings -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+
+    /* ── RESET ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ── CSS VARIABLES ── */
+    :root {
+      --cream: #ffffff;
+      --charcoal: #1a1a1a;
+      --warm-mid: #1a3a2a;
+      --terracotta: #2e7d32;
+      --terracotta-dark: #1b5e20;
+      --muted: #5a6472;
+      --border: #e5e7eb;
+      --accent-yellow: #d4a017;
+
+      /* Typography scale */
+      --font-body: 'Inter', sans-serif;
+      --font-heading: 'Playfair Display', serif;
+      --body-size: 1rem;
+      --body-line: 1.85;
+      --body-spacing: 0.01em;
+    }
+
+    /* ── BASE TYPOGRAPHY ──
+       Global improvement: Inter for all body text,
+       better line-height and letter-spacing for readability
+    */
+    html, body {
+      height: 100%;
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: var(--body-line);
+      letter-spacing: var(--body-spacing);
+      background-color: var(--cream);
+      color: var(--charcoal);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* All paragraph text across the site */
+    p {
+      font-family: var(--font-body);
+      font-weight: 400;
+      line-height: var(--body-line);
+      letter-spacing: var(--body-spacing);
+    }
+
+    /* All headings keep Playfair for elegance */
+    h1, h2, h3, h4 {
+      font-family: var(--font-heading);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+
+
+    /* ════════════════════════════════
+       HERO SECTION
+    ════════════════════════════════ */
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+
+    .hero__left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 7rem 5rem 7rem 6rem;
+      position: relative;
+    }
+
+    .hero__left::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        var(--terracotta) 30%,
+        var(--terracotta) 70%,
+        transparent
+      );
+    }
+
+    .hero__eyebrow {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero__headline {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+      line-height: 1.18;
+      color: var(--charcoal);
+      margin-bottom: 1.75rem;
+    }
+
+    .hero__headline em {
+      font-style: italic;
+      color: var(--terracotta);
+    }
+
+    .hero__subtext {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      font-weight: 400;
+      line-height: 1.8;
+      color: var(--muted);
+      max-width: 420px;
+      margin-bottom: 3rem;
+    }
+
+    .hero__actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.875rem;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.9rem 2.1rem;
+      border-radius: 2px;
+      transition: background 0.22s ease, color 0.22s ease, transform 0.18s ease;
+    }
+
+    .btn--primary {
+      background: var(--terracotta);
+      color: #fff;
+    }
+
+    .btn--primary:hover {
+      background: var(--terracotta-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn--outline {
+      background: transparent;
+      color: var(--charcoal);
+      border: 1.5px solid var(--border);
+    }
+
+    .btn--outline:hover {
+      border-color: var(--charcoal);
+      transform: translateY(-1px);
+    }
+
+    .hero__top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 2rem;
+    }
+
+    .hero__logo {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      border-radius: 50%;
+    }
+
+    .hero__name {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--terracotta);
+      letter-spacing: 0.02em;
+    }
+
+    .hero__right {
+      position: relative;
+      background: var(--warm-mid);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero__quote {
+      position: relative;
+      z-index: 3;
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.65;
+      padding: 2.5rem 2.5rem 1.5rem 2.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .hero__quote::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 2px;
+      background: var(--accent-yellow);
+      margin-bottom: 1rem;
+    }
+
+    .slider {
+      position: relative;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .slide.active { opacity: 1; }
+
+    .slider::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(26, 58, 42, 0.35);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero__stat-block {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 2.5rem;
+      z-index: 2;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .hero__stat-number {
+      font-family: var(--font-heading);
+      font-size: 3rem;
+      font-weight: 600;
+      line-height: 1;
+      display: block;
+    }
+
+    .hero__stat-divider {
+      width: 36px;
+      height: 1.5px;
+      background: var(--accent-yellow);
+      margin: 0.75rem 0;
+    }
+
+    .hero__stat-label {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: rgba(255, 255, 255, 0.55);
+      display: block;
+    }
+
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; grid-template-rows: auto auto; }
+      .hero__left { padding: 5rem 2rem 3.5rem 2.5rem; order: 2; }
+      .hero__left::before {
+        width: 100%; height: 3px; top: 0;
+        background: linear-gradient(to right, transparent, var(--terracotta) 30%, var(--terracotta) 70%, transparent);
+      }
+      .hero__right { order: 1; min-height: 380px; max-height: 480px; }
+      .hero__stat-number { font-size: 2.2rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero__left { padding: 3.5rem 1.5rem 3rem 1.75rem; }
+      .hero__actions { flex-direction: column; align-items: flex-start; }
+      .btn { width: 100%; text-align: center; }
+      .hero__right { min-height: 300px; max-height: 360px; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero__eyebrow  { animation: fadeUp 0.6s ease both; animation-delay: 0.1s; }
+    .hero__headline { animation: fadeUp 0.6s ease both; animation-delay: 0.25s; }
+    .hero__subtext  { animation: fadeUp 0.6s ease both; animation-delay: 0.4s; }
+    .hero__actions  { animation: fadeUp 0.6s ease both; animation-delay: 0.55s; }
+
+
+    /* ════════════════════════════════
+       ABOUT SECTION
+    ════════════════════════════════ */
+
+    .about {
+      background-color: #f4f7f4;
+      border-top: 1px solid var(--border);
+    }
+
+    .about__eyebrow {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 0.85rem;
+    }
+
+    .about__heading {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      line-height: 1.25;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+    }
+
+    .about__heading em {
+      font-style: italic;
+      color: var(--terracotta);
+    }
+
+    .about__intro-block {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 6rem 2rem 5rem;
+      text-align: center;
+    }
+
+    .about__intro-divider {
+      width: 48px;
+      height: 3px;
+      background: var(--accent-yellow);
+      margin: 0 auto 2.5rem;
+      border-radius: 2px;
+    }
+
+    .about__intro-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      text-align: left;
+    }
+
+    .about__intro-text p {
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.9;
+      color: #374151;
+    }
+
+    .about__intro-text strong {
+      font-weight: 600;
+      color: var(--charcoal);
+    }
+
+    .about__mvv-block {
+      background-color: #ffffff;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 5rem 4rem;
+    }
+
+    .about__mvv-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      align-items: stretch;
+    }
+
+    .about__mvv-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background-color: #f9fafb;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      padding-bottom: 2.25rem;
+      transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .about__mvv-card:hover {
+      border-color: var(--terracotta);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(46, 125, 50, 0.08);
+    }
+
+    .about__mvv-card::before {
+      content: '';
+      display: block;
+      height: 4px;
+      background: var(--terracotta);
+      width: 100%;
+      flex-shrink: 0;
+    }
+
+    .about__mvv-card--featured {
+      background-color: #1a3a2a;
+      border-color: #1a3a2a;
+    }
+
+    .about__mvv-card--featured::before { background: var(--accent-yellow); }
+
+    .about__mvv-card--featured .about__mvv-title { color: #ffffff; }
+
+    .about__mvv-card--featured .about__mvv-text {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .about__card-icon-wrap {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background-color: #e8f5e9;
+      border: 3px solid #c8e6c9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+      margin-top: 2.25rem;
+      margin-bottom: 1.5rem;
+      animation: iconFloat 3.5s ease-in-out infinite;
+    }
+
+    .about__mvv-card--featured .about__card-icon-wrap {
+      background-color: #fef9c3;
+      border-color: #fde68a;
+    }
+
+    .about__mvv-card:nth-child(1) .about__card-icon-wrap { animation-delay: 0s; }
+    .about__mvv-card:nth-child(2) .about__card-icon-wrap { animation-delay: 0.6s; }
+    .about__mvv-card:nth-child(3) .about__card-icon-wrap { animation-delay: 1.2s; }
+
+    .about__icon-img {
+      width: 110px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .about__mvv-title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: var(--charcoal);
+      margin-bottom: 0.75rem;
+      padding: 0 1.75rem;
+    }
+
+    .about__mvv-text {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      font-weight: 400;
+      line-height: 1.82;
+      color: #4b5563;
+      padding: 0 1.75rem;
+    }
+
+    .about__sectors-block {
+      padding: 5.5rem 4rem 6.5rem;
+    }
+
+    .about__sectors-header {
+      max-width: 1100px;
+      margin: 0 auto 3rem;
+    }
+
+    .about__sectors-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .about__sector-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.1rem;
+      padding: 2.75rem 2rem 2.5rem;
+      background-color: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .about__sector-card:hover {
+      border-color: var(--terracotta);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(46, 125, 50, 0.08);
+    }
+
+    .about__sector-icon-wrap {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: #e8f5e9;
+      border: 2px solid #c8e6c9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+      animation: iconFloat 3.5s ease-in-out infinite;
+    }
+
+    .about__sector-card:nth-child(1) .about__sector-icon-wrap { animation-delay: 0s; }
+    .about__sector-card:nth-child(2) .about__sector-icon-wrap { animation-delay: 0.7s; }
+    .about__sector-card:nth-child(3) .about__sector-icon-wrap { animation-delay: 1.4s; }
+
+    .about__sector-img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .about__sector-title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--charcoal);
+      line-height: 1.3;
+    }
+
+    .about__sector-text {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      font-weight: 400;
+      line-height: 1.82;
+      color: #4b5563;
+    }
+
+    @keyframes iconFloat {
+      0%   { transform: translateY(0px); }
+      50%  { transform: translateY(-8px); }
+      100% { transform: translateY(0px); }
+    }
+
+    @media (max-width: 900px) {
+      .about__mvv-block     { padding: 4rem 2rem; }
+      .about__mvv-grid      { grid-template-columns: 1fr; gap: 1.5rem; }
+      .about__sectors-block { padding: 4rem 2rem 5rem; }
+      .about__sectors-grid  { grid-template-columns: 1fr; gap: 1.5rem; }
+      .about__intro-block   { padding: 4rem 1.5rem 3.5rem; }
+      .about__sector-card   { align-items: flex-start; text-align: left; }
+    }
+
+    @media (max-width: 480px) {
+      .about__mvv-block     { padding: 3rem 1.25rem; }
+      .about__sectors-block { padding: 3rem 1.25rem 4rem; }
+      .about__intro-block   { padding: 3rem 1.25rem; }
+      .about__mvv-card      { border-radius: 6px; }
+      .about__sector-card   { padding: 2rem 1.5rem; }
+      .about__card-icon-wrap { width: 110px; height: 110px; }
+      .about__icon-img       { width: 90px; height: 90px; }
+    }
+
+
+    /* ════════════════════════════════
+       PROJECTS SECTION
+    ════════════════════════════════ */
+
+    .projects__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .projects__eyebrow {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 0.85rem;
+    }
+
+    .projects__heading {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      line-height: 1.25;
+      color: var(--charcoal);
+      margin-bottom: 1rem;
+    }
+
+    .projects__intro {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.8;
+      color: var(--muted);
+      max-width: 560px;
+    }
+
+    .projects__header,
+    .projects__past-header {
+      margin-bottom: 3.5rem;
+    }
+
+    .projects__current {
+      background-color: var(--cream);
+      padding: 7rem 4rem 6rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .projects__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background-color: #ffffff;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .project-card__poster-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+    }
+
+    .project-card__poster {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .project-card:hover .project-card__poster { transform: scale(1.04); }
+
+    .project-card__badge {
+      position: absolute;
+      top: 0.85rem;
+      right: 0.85rem;
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #1a3a2a;
+      background-color: rgba(255, 255, 255, 0.92);
+      border: 1.5px solid #bbf7d0;
+      padding: 0.28rem 0.75rem;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+    }
+
+    .project-card__badge--yellow {
+      color: #1a3a2a;
+      background-color: rgba(254, 249, 195, 0.95);
+      border-color: #fde68a;
+    }
+
+    .project-card__caption {
+      padding: 1.5rem 1.6rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      border-left: 3px solid var(--terracotta);
+    }
+
+    .project-card--featured .project-card__caption {
+      border-left-color: var(--accent-yellow);
+    }
+
+    .project-card__title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.05rem;
+      line-height: 1.35;
+      color: var(--charcoal);
+    }
+
+    .project-card__desc {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 400;
+      line-height: 1.8;
+      color: #4b5563;
+    }
+
+    .projects__past {
+      background-color: #f4f7f4;
+      padding: 6rem 4rem 7rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .past-slider {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .past-slider__track {
+      display: flex;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .past-slide {
+      min-width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .past-slide__img-wrap {
+  width: 100%;
+  height: 0;
+  padding-bottom: 75%; /* 4:3 ratio — adjusts height relative to width */
+  overflow: hidden;
+  border-radius: 10px 10px 0 0;
+  position: relative;
+}
+
+    .past-slide__img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, rgba(26, 58, 42, 0.6) 100%);
+    }
+
+    .past-slide__img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+    .past-slide:hover .past-slide__img { transform: scale(1.03); }
+
+    .past-slide__caption {
+      background-color: #ffffff;
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 10px 10px;
+      padding: 1.5rem 2rem;
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #374151;
+      text-align: center;
+    }
+
+    .past-slide__caption::before {
+      content: '"';
+      font-size: 2.5rem;
+      line-height: 0;
+      vertical-align: -0.6rem;
+      color: var(--accent-yellow);
+      margin-right: 0.3rem;
+      font-family: var(--font-heading);
+    }
+
+    .past-slider__dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-top: 1.75rem;
+    }
+
+    .past-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: none;
+      background-color: #c8e6c9;
+      cursor: pointer;
+      transition: background-color 0.22s ease, transform 0.22s ease;
+      padding: 0;
+    }
+
+    .past-dot.active {
+      background-color: var(--terracotta);
+      transform: scale(1.3);
+    }
+
+   .past-slider__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background-color: rgba(255, 255, 255, 0.92);
+      color: var(--charcoal);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+      transition: background-color 0.2s ease, transform 0.2s ease;
+      z-index: 2;
+    }
+
+   .past-slider__arrow:hover {
+  background-color: var(--terracotta);
+  color: #ffffff;
+  transform: translateY(-50%) scale(1.08);
+}
+
+    .past-slider__arrow--prev { left: 1rem; }
+    .past-slider__arrow--next { right: 1rem; }
+
+    @media (max-width: 860px) {
+  .projects__current { padding: 5rem 2.5rem 4rem; }
+  .projects__past    { padding: 4rem 2.5rem 5rem; }
+  .projects__grid    { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  /* padding-bottom controls the ratio — no fixed height needed */
+  .past-slide__img-wrap { padding-bottom: 70%; }
+}
+
+@media (max-width: 600px) {
+  .projects__current { padding: 4rem 1.5rem 3rem; }
+  .projects__past    { padding: 3.5rem 1.5rem 4rem; }
+  .projects__grid    { grid-template-columns: 1fr; }
+  .past-slide__img-wrap { padding-bottom: 80%; }
+  .past-slide__caption  { font-size: 0.92rem; padding: 1.25rem; }
+  .past-slider__arrow   { display: none; }
+}
+
+
+    /* ════════════════════════════════
+       CTA SECTION — "Be part of the change"
+       Final section of the homepage.
+       Warm, human, clear invitation to act.
+    ════════════════════════════════ */
+
+    .cta {
+      background-color: #ffffff;
+      border-top: 1px solid var(--border);
+      padding: 8rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /*
+      Subtle background shape — a very soft green circle
+      in the top-right corner. Adds warmth without distraction.
+    */
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      right: -120px;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(46, 125, 50, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Second soft shape — bottom left */
+    .cta::after {
+      content: '';
+      position: absolute;
+      bottom: -80px;
+      left: -80px;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212, 160, 23, 0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── TOP: Headline and intro ── */
+    .cta__header {
+      text-align: center;
+      margin-bottom: 4.5rem;
+    }
+
+    /* Yellow bar above headline — matches other section dividers */
+    .cta__divider {
+      width: 48px;
+      height: 3px;
+      background: var(--accent-yellow);
+      margin: 0 auto 1.5rem;
+      border-radius: 2px;
+    }
+
+    .cta__headline {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.2;
+      color: var(--charcoal);
+      margin-bottom: 1.25rem;
+    }
+
+    /* "change" in green italic — ties to site's voice */
+    .cta__headline em {
+      font-style: italic;
+      color: var(--terracotta);
+    }
+
+    .cta__subtext {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      font-weight: 400;
+      line-height: 1.85;
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    /* ── ACTION BLOCKS: Donate + Volunteer ── */
+    .cta__actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    /* Base action block */
+    .cta__block {
+      border-radius: 10px;
+      padding: 3rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .cta__block:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.09);
+    }
+
+    /*
+      DONATE block — dark green background.
+      Most visually prominent — this is the primary action.
+    */
+    .cta__block--donate {
+      background-color: var(--warm-mid);
+      border: none;
+    }
+
+    .cta__block--donate .cta__block-icon {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--accent-yellow);
+    }
+
+    .cta__block--donate .cta__block-title {
+      color: #ffffff;
+    }
+
+    .cta__block--donate .cta__block-text {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    /*
+      VOLUNTEER block — light card with green border.
+      Secondary action — supportive, not competing.
+    */
+    .cta__block--volunteer {
+      background-color: #f9fafb;
+      border: 1.5px solid var(--border);
+    }
+
+    .cta__block--volunteer .cta__block-icon {
+      background-color: #e8f5e9;
+      color: var(--terracotta);
+    }
+
+    .cta__block--volunteer .cta__block-title {
+      color: var(--charcoal);
+    }
+
+    .cta__block--volunteer .cta__block-text {
+      color: #4b5563;
+    }
+
+    /* Icon badge at the top of each block */
+    .cta__block-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .cta__block-title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .cta__block-text {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 400;
+      line-height: 1.82;
+      flex-grow: 1;
+    }
+
+    /* ── CTA BUTTONS ── */
+
+    /* Donate button — large, bold, strong green */
+    .cta__btn-donate {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      text-align: center;
+      padding: 1rem 2.5rem;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      background-color: var(--accent-yellow);
+      color: #1a3a2a;
+      align-self: flex-start;
+      transition: background-color 0.22s ease, transform 0.18s ease, box-shadow 0.22s ease;
+    }
+
+    .cta__btn-donate:hover {
+      background-color: #c49010;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212, 160, 23, 0.4);
+    }
+
+    /* Volunteer button — outline style, green border */
+    .cta__btn-volunteer {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.92rem;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      text-align: center;
+      padding: 0.95rem 2.2rem;
+      border-radius: 4px;
+      border: 2px solid var(--terracotta);
+      background: transparent;
+      color: var(--terracotta);
+      align-self: flex-start;
+      cursor: pointer;
+      transition: background-color 0.22s ease, color 0.22s ease, transform 0.18s ease;
+    }
+
+    .cta__btn-volunteer:hover {
+      background-color: var(--terracotta);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    /* ── CONTACT STRIP ── */
+    .cta__contact {
+      background-color: #f4f7f4;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 2.5rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .cta__contact-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .cta__contact-label {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+    }
+
+    .cta__contact-title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.4rem;
+      color: var(--charcoal);
+      line-height: 1.2;
+    }
+
+    /* Contact details — email and phone side by side */
+    .cta__contact-details {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .cta__contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    /* Icon circle for each contact detail */
+    .cta__contact-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #e8f5e9;
+      border: 1.5px solid #c8e6c9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .cta__contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .cta__contact-type {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .cta__contact-value {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .cta__contact-value:hover {
+      color: var(--terracotta);
+    }
+
+    /* ── CTA Responsive ── */
+    @media (max-width: 860px) {
+      .cta { padding: 6rem 2.5rem; }
+      .cta__actions { grid-template-columns: 1fr; gap: 1.5rem; }
+      .cta__contact { padding: 2rem; }
+      .cta__contact-details { gap: 1.5rem; }
+    }
+
+    @media (max-width: 560px) {
+      .cta { padding: 4.5rem 1.5rem; }
+      .cta__header { margin-bottom: 3rem; }
+      .cta__block  { padding: 2.25rem 1.75rem; }
+      .cta__btn-donate,
+      .cta__btn-volunteer { width: 100%; text-align: center; }
+      .cta__contact { flex-direction: column; align-items: flex-start; }
+      .cta__contact-details { flex-direction: column; gap: 1rem; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════
+       HERO SECTION
+  ════════════════════════════════ -->
+  <section class="hero" role="banner">
+
+    <div class="hero__left">
+      <div class="hero__top">
+        <img src="images/WhatsApp Image 2026-04-01 at 20.40.00 (1).jpeg" alt="Comfort Precinct Logo" class="hero__logo">
+        <span class="hero__name">Comfort Precinct Foundation</span>
+      </div>
+
+      <h1 class="hero__headline">
+        Your Comfort<br>
+        Is <em>Our</em><br>
+        Concern.
+      </h1>
+
+      <p class="hero__subtext">
+        Every person deserves safety, care, and a future worth believing in.
+        We go where the need is greatest and stay until the work is done.
+      </p>
+
+      <div class="hero__actions">
+        <a href=https://paystack.shop/pay/zm4t6nlldg class="btn btn--primary">Donate Now</a>
+        <a href="#volunteer" class="btn btn--outline">Volunteer</a>
+      </div>
+    </div>
+
+    <div class="hero__right" aria-hidden="true">
+      <blockquote class="hero__quote">
+        "The measure of a society is how it treats its most vulnerable."
+      </blockquote>
+
+      <div class="slider">
+        <img src="images/WhatsApp Image 2026-04-01 at 20.42.00 (2).jpeg" class="slide active" alt="Comfort Precinct in action">
+        <img src="images/WhatsApp Image 2026-04-01 at 20.39.55 (2).jpeg" class="slide" alt="Community outreach">
+        <img src="images/WhatsApp Image 2026-04-01 at 20.39.59 (1).jpeg" class="slide" alt="Education initiative">
+
+        <div class="hero__stat-block">
+          <span class="hero__stat-number">14,000+</span>
+          <div class="hero__stat-divider"></div>
+          <span class="hero__stat-label">lives reached across our programmes</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ════════════════════════════════
+       ABOUT SECTION
+  ════════════════════════════════ -->
+  <section class="about" id="about">
+
+    <div class="about__intro-block">
+      <p class="about__eyebrow">Who We Are</p>
+      <h2 class="about__heading">Built on purpose.<br>Driven by <em>people</em>.</h2>
+      <div class="about__intro-divider"></div>
+      <div class="about__intro-text">
+        <p>Comfort Precinct Foundation was founded on <strong>October 18, 2018</strong>, with a clear purpose to stand in the gap for individuals and communities who need support the most.</p>
+        <p>Guided by structure and a strong sense of responsibility, we carry out focused initiatives each year that create real, lasting impact.</p>
+        <p>Every project we undertake is rooted in accountability, transparency, and a commitment to ensuring that no effort and <strong>no person</strong> is overlooked.</p>
+      </div>
+    </div>
+
+    <div class="about__mvv-block">
+      <div class="about__mvv-grid">
+
+        <div class="about__mvv-card">
+          <div class="about__card-icon-wrap">
+            <img src="images/mission.jpeg" alt="Mission" class="about__icon-img" />
+          </div>
+          <h3 class="about__mvv-title">Mission</h3>
+          <p class="about__mvv-text">To inform, uplift, and support vulnerable individuals and communities through meaningful initiatives that create real opportunities and lasting change.</p>
+        </div>
+
+        <div class="about__mvv-card about__mvv-card--featured">
+          <div class="about__card-icon-wrap">
+            <img src="images/vision.jpeg" alt="Vision" class="about__icon-img" />
+          </div>
+          <h3 class="about__mvv-title">Vision</h3>
+          <p class="about__mvv-text">To build a society where compassion leads action, and every individual has access to dignity, support, and the opportunity to live a better life.</p>
+        </div>
+
+        <div class="about__mvv-card">
+          <div class="about__card-icon-wrap">
+            <img src="images/values.jpeg" alt="Values" class="about__icon-img" />
+          </div>
+          <h3 class="about__mvv-title">Values</h3>
+          <p class="about__mvv-text">We are guided by transparency, accountability, and genuine care ensuring that every contribution is used responsibly and every action creates measurable impact.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="about__sectors-block">
+      <div class="about__sectors-header">
+        <p class="about__eyebrow">What We Stand For</p>
+        <h2 class="about__heading">Our Focus Areas</h2>
+      </div>
+
+      <div class="about__sectors-grid">
+
+        <div class="about__sector-card">
+          <div class="about__sector-icon-wrap">
+            <img src="images/humanitarian.png.jpg" alt="Humanitarian Support" class="about__sector-img" />
+          </div>
+          <h3 class="about__sector-title">Humanitarian Support</h3>
+          <p class="about__sector-text">Providing relief, care, and essential support to individuals and families facing hardship.</p>
+        </div>
+
+        <div class="about__sector-card">
+          <div class="about__sector-icon-wrap">
+            <img src="images/empowerment.png.jpg" alt="Community Empowerment" class="about__sector-img" />
+          </div>
+          <h3 class="about__sector-title">Community Empowerment</h3>
+          <p class="about__sector-text">Equipping people with knowledge, resources, and opportunities to build independent and sustainable lives.</p>
+        </div>
+
+        <div class="about__sector-card">
+          <div class="about__sector-icon-wrap">
+            <img src="images/education.png.jpg" alt="Education & Opportunity" class="about__sector-img" />
+          </div>
+          <h3 class="about__sector-title">Education &amp; Opportunity</h3>
+          <p class="about__sector-text">Supporting access to learning and creating pathways for young people to grow and succeed.</p>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ════════════════════════════════
+       PROJECTS SECTION
+  ════════════════════════════════ -->
+  <section class="projects" id="projects">
+
+    <div class="projects__current">
+      <div class="projects__inner">
+
+        <div class="projects__header">
+          <p class="projects__eyebrow">What We're Doing Now</p>
+          <h2 class="projects__heading">Our Work in 2026</h2>
+          <p class="projects__intro">
+            Every project we run is a direct response to a real need.
+            These are the lives we are walking alongside right now.
+          </p>
+        </div>
+
+        <div class="projects__grid">
+
+          <div class="project-card">
+            <div class="project-card__poster-wrap">
+              <img src="images/prisoner.jpeg" alt="Prison Outreach Programme" class="project-card__poster" />
+              <span class="project-card__badge">Active · 2026</span>
+            </div>
+            <div class="project-card__caption">
+              <h3 class="project-card__title">Prison Outreach Programme</h3>
+              <p class="project-card__desc">
+                Providing essential items such as toiletries and blankets to inmates, alongside awareness and support sessions to promote dignity and rehabilitation.
+              </p>
+            </div>
+          </div>
+
+          <div class="project-card project-card--featured">
+            <div class="project-card__poster-wrap">
+              <img src="images/widows.jpeg" alt="Operation Feed the Widows" class="project-card__poster" />
+              <span class="project-card__badge project-card__badge--yellow">Active · 2026</span>
+            </div>
+            <div class="project-card__caption">
+              <h3 class="project-card__title">Operation Feed the Widows</h3>
+              <p class="project-card__desc">
+                Continuing our commitment to supporting widows through food assistance and empowerment initiatives that promote stability and independence.
+              </p>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-card__poster-wrap">
+              <img src="images/students.jpeg" alt="Student Sponsorship Programme" class="project-card__poster" />
+              <span class="project-card__badge">Active · 2026</span>
+            </div>
+            <div class="project-card__caption">
+              <h3 class="project-card__title">Student Sponsorship Programme</h3>
+              <p class="project-card__desc">
+                Supporting underprivileged students in public primary and secondary schools with resources and financial assistance to keep them in school.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="projects__past">
+      <div class="projects__inner">
+
+        <div class="projects__past-header">
+          <p class="projects__eyebrow">Where We Have Been</p>
+          <h2 class="projects__heading">Moments From Our Work</h2>
+          <p class="projects__intro">
+            These moments remind us why we show up — and who we show up for.
+          </p>
+        </div>
+
+        <div class="past-slider">
+          <div class="past-slider__track" id="pastTrack">
+
+            <div class="past-slide">
+              <div class="past-slide__img-wrap">
+                <img src="images/a.jpeg" class="past-slide__img" />
+              </div>
+              
+            </div>
+
+            <div class="past-slide">
+              <div class="past-slide__img-wrap">
+                <img src="images/b.jpeg" class="past-slide__img" />
+              </div>
+              
+            </div>
+
+            <div class="past-slide">
+              <div class="past-slide__img-wrap">
+                <img src="images/c.jpeg" class="past-slide__img" />
+              </div>
+              
+            </div>
+
+             <div class="past-slide">
+              <div class="past-slide__img-wrap">
+                <img src="images/d.jpeg" class="past-slide__img" />
+              </div>
+              
+            </div>\
+
+            <div class="past-slide">
+              <div class="past-slide__img-wrap">
+                <img src="images/f.jpeg" class="past-slide__img" />
+              </div>
+              
+            </div>
+
+            <div class="past-slide">
+              <div class="past-slide__img-wrap">
+                <img src="images/h.jpeg" class="past-slide__img" />
+              </div>
+              
+            </div>
+
+             <div class="past-slide">
+              <div class="past-slide__img-wrap">
+                <img src="images/i.jpeg" class="past-slide__img" />
+              </div>
+              
+            </div>
+
+
+          </div>
+
+          <div class="past-slider__dots" id="pastDots">
+            <button class="past-dot active" aria-label="Slide 1"></button>
+            <button class="past-dot" aria-label="Slide 2"></button>
+            <button class="past-dot" aria-label="Slide 3"></button>
+            <button class="past-dot" aria-label="Slide 4"></button>
+            <button class="past-dot" aria-label="Slide 5"></button>
+            <button class="past-dot" aria-label="Slide 6"></button>
+            <button class="past-dot" aria-label="Slide 7"></button>
+          </div>
+
+          <button class="past-slider__arrow past-slider__arrow--prev" id="pastPrev" aria-label="Previous">&#8592;</button>
+          <button class="past-slider__arrow past-slider__arrow--next" id="pastNext" aria-label="Next">&#8594;</button>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ════════════════════════════════
+       CTA SECTION
+       Final section — warm invitation to act.
+       Donate, Volunteer, and Contact.
+  ════════════════════════════════ -->
+  <section class="cta" id="donate">
+    <div class="cta__inner">
+
+      <!-- Headline and intro -->
+      <div class="cta__header">
+        <div class="cta__divider"></div>
+        <h2 class="cta__headline">Be part of the <em>change</em></h2>
+        <p class="cta__subtext">
+          Your support helps us reach more lives, strengthen communities,
+          and create lasting impact. Every action counts.
+        </p>
+      </div>
+
+      <!-- Donate + Volunteer blocks -->
+      <div class="cta__actions">
+
+        <!-- DONATE — primary, dark green card -->
+        <div class="cta__block cta__block--donate">
+          <div class="cta__block-icon">💛</div>
+          <h3 class="cta__block-title">Donate</h3>
+          <p class="cta__block-text">
+            Support our initiatives and help us extend care, dignity,
+            and opportunity to those who need it most. Every contribution,
+            big or small, makes a real difference.
+          </p>
+          <a href="mailto:folashadeyewande@gmail.com?subject=Donation Enquiry" class="cta__btn-donate">
+            Donate Now
+          </a>
+        </div>
+
+        <!-- VOLUNTEER — secondary, light card -->
+        <div class="cta__block cta__block--volunteer" id="volunteer">
+          <div class="cta__block-icon">🤝</div>
+          <h3 class="cta__block-title">Volunteer</h3>
+          <p class="cta__block-text">
+            Join our community and be part of the hands and hearts
+            driving meaningful change. Your time and skills can
+            transform lives in ways you may not yet imagine.
+          </p>
+          <a href="mailto:folashadeyewande@gmail.com?subject=Volunteer Enquiry" class="cta__btn-volunteer">
+            Become a Volunteer
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Contact strip -->
+      <div class="cta__contact">
+
+        <div class="cta__contact-left">
+          <span class="cta__contact-label">Reach us directly</span>
+          <h3 class="cta__contact-title">Get in touch</h3>
+        </div>
+
+        <div class="cta__contact-details">
+
+          <!-- Email -->
+          <div class="cta__contact-item">
+            <div class="cta__contact-icon">✉️</div>
+            <div class="cta__contact-info">
+              <span class="cta__contact-type">Email</span>
+              <a href="mailto:folashadeyewande@gmail.com" class="cta__contact-value">
+                folashadeyewande@gmail.com
+              </a>
+            </div>
+          </div>
+
+          <!-- Phone -->
+          <div class="cta__contact-item">
+            <div class="cta__contact-icon">📞</div>
+            <div class="cta__contact-info">
+              <span class="cta__contact-type">Phone</span>
+              <a href="tel:+2348158536960" class="cta__contact-value">
+                08158536960
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════
+       JAVASCRIPT
+  ════════════════════════════════ -->
+  <script>
+
+    // ── HERO SLIDER ──
+    const slides = document.querySelectorAll(".slide");
+    let currentIndex = 0;
+
+    function showNextSlide() {
+      slides[currentIndex].classList.remove("active");
+      currentIndex = (currentIndex + 1) % slides.length;
+      slides[currentIndex].classList.add("active");
+    }
+
+    setInterval(showNextSlide, 4000);
+
+
+    // ── PAST PROJECTS SLIDER ──
+    const track       = document.getElementById("pastTrack");
+    const dots        = document.querySelectorAll(".past-dot");
+    const prevBtn     = document.getElementById("pastPrev");
+    const nextBtn     = document.getElementById("pastNext");
+    const totalSlides = dots.length;
+    let pastIndex     = 0;
+    let autoTimer;
+
+    function goToSlide(index) {
+      pastIndex = (index + totalSlides) % totalSlides;
+      track.style.transform = `translateX(-${pastIndex * 100}%)`;
+      dots.forEach(d => d.classList.remove("active"));
+      dots[pastIndex].classList.add("active");
+    }
+
+    function startAuto() {
+      autoTimer = setInterval(() => goToSlide(pastIndex + 1), 5000);
+    }
+
+    function resetAuto() {
+      clearInterval(autoTimer);
+      startAuto();
+    }
+
+    prevBtn.addEventListener("click", () => { goToSlide(pastIndex - 1); resetAuto(); });
+    nextBtn.addEventListener("click", () => { goToSlide(pastIndex + 1); resetAuto(); });
+    dots.forEach((dot, i) => {
+      dot.addEventListener("click", () => { goToSlide(i); resetAuto(); });
+    });
+
+    startAuto();
+
+  </script>
+
+</body>
+</html>
