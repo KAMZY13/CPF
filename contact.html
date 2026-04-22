@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Comfort Precinct Foundation</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+
+    /* ── RESET ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ── CSS VARIABLES ── */
+    :root {
+      --cream: #ffffff;
+      --charcoal: #1a1a1a;
+      --warm-mid: #1a3a2a;
+      --terracotta: #2e7d32;
+      --terracotta-dark: #1b5e20;
+      --muted: #5a6472;
+      --border: #e5e7eb;
+      --accent-yellow: #d4a017;
+      --bg-soft: #f4f7f4;
+      --green-light: #e8f5e9;
+      --green-border: #c8e6c9;
+      --font-body: 'Inter', sans-serif;
+      --font-heading: 'Playfair Display', serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.85;
+      letter-spacing: 0.01em;
+      background-color: var(--cream);
+      color: var(--charcoal);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    p { font-family: var(--font-body); font-weight: 400; line-height: 1.85; }
+    h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; letter-spacing: -0.01em; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+
+    /* ════════════════════════════════
+       NAVIGATION (shared — identical to projects.html)
+    ════════════════════════════════ */
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 0 4rem;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav__brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav__logo { width: 38px; height: 38px; border-radius: 50%; object-fit: contain; }
+    .nav__brand-name { font-family: var(--font-body); font-weight: 600; font-size: 0.9rem; color: var(--terracotta); letter-spacing: 0.02em; }
+    .nav__links { display: flex; align-items: center; gap: 0; list-style: none; }
+    .nav__item { position: relative; }
+
+    .nav__item > a {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      transition: color 0.2s ease;
+      position: relative;
+      padding: 0 1.25rem;
+      height: 68px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav__item > a:hover { color: var(--terracotta); }
+    .nav__item > a.active { color: var(--terracotta); font-weight: 600; }
+
+    .nav__item > a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 1.25rem; right: 1.25rem;
+      height: 2px;
+      background-color: var(--terracotta);
+      border-radius: 2px 2px 0 0;
+    }
+
+    .nav__item--dropdown > a::before { content: '▾'; font-size: 0.65rem; margin-left: 0.35rem; opacity: 0.5; display: inline-block; }
+
+    .nav__dropdown {
+      position: absolute;
+      top: 100%; left: 0;
+      min-width: 220px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--terracotta);
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      padding: 0.5rem 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(6px);
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+      pointer-events: none;
+    }
+
+    .nav__item--dropdown:hover .nav__dropdown { opacity: 1; visibility: visible; transform: translateY(0); pointer-events: all; }
+
+    .nav__dropdown a {
+      display: block;
+      padding: 0.65rem 1.25rem;
+      font-family: var(--font-body);
+      font-size: 0.84rem;
+      font-weight: 400;
+      color: #4b5563;
+      text-decoration: none;
+      transition: background 0.15s ease, color 0.15s ease;
+      border-left: 3px solid transparent;
+    }
+
+    .nav__dropdown a:hover { background: #f4f7f4; color: var(--terracotta); border-left-color: var(--terracotta); }
+
+    .nav__toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 4px; }
+    .nav__toggle span { display: block; width: 24px; height: 2px; background-color: var(--charcoal); border-radius: 2px; transition: all 0.3s ease; }
+
+    @media (max-width: 768px) {
+      .nav { padding: 0 1.5rem; }
+      .nav__toggle { display: flex; }
+      .nav__links {
+        display: none;
+        position: absolute;
+        top: 68px; left: 0; right: 0;
+        background: #ffffff;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        border-bottom: 1px solid var(--border);
+        padding: 0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      }
+      .nav__links.open { display: flex; }
+      .nav__item > a { height: auto; padding: 0.9rem 1.5rem; display: block; border-bottom: 1px solid #f3f4f6; }
+      .nav__item > a.active::after { display: none; }
+      .nav__item--dropdown > a::before { display: none; }
+      .nav__dropdown { position: static; opacity: 1; visibility: visible; transform: none; box-shadow: none; border: none; border-radius: 0; background: #f9fafb; padding: 0; pointer-events: all; display: none; }
+      .nav__item--dropdown.open .nav__dropdown { display: block; }
+      .nav__dropdown a { padding: 0.7rem 2rem; font-size: 0.82rem; border-bottom: 1px solid #f0f0f0; border-left: none; }
+    }
+
+
+    /* ════════════════════════════════
+       SHARED SECTION STYLES
+    ════════════════════════════════ */
+
+    .section { padding: 6rem 4rem; }
+    .section--alt { background-color: var(--bg-soft); }
+    .section--dark { background-color: var(--warm-mid); }
+
+    .section__inner { max-width: 1100px; margin: 0 auto; }
+
+    .eyebrow {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 0.85rem;
+      display: block;
+    }
+
+    .section--dark .eyebrow { color: var(--accent-yellow); }
+
+    .section__heading {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      line-height: 1.25;
+      color: var(--charcoal);
+      margin-bottom: 1.25rem;
+    }
+
+    .section--dark .section__heading { color: #ffffff; }
+
+    .section__heading em { font-style: italic; color: var(--terracotta); }
+    .section--dark .section__heading em { color: var(--accent-yellow); }
+
+    .section__divider { width: 48px; height: 3px; background: var(--accent-yellow); border-radius: 2px; margin-bottom: 2.5rem; }
+
+    .section__body { font-size: 1rem; line-height: 1.9; color: #374151; max-width: 680px; }
+    .section--dark .section__body { color: rgba(255,255,255,0.75); }
+
+    @media (max-width: 768px) { .section { padding: 4rem 1.5rem; } }
+
+
+    /* ════════════════════════════════
+       PAGE HERO
+    ════════════════════════════════ */
+
+    .page-hero {
+      background-color: var(--warm-mid);
+      padding: 7rem 4rem 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(46,125,50,0.3) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .page-hero__inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+
+    .page-hero__label {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent-yellow);
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+
+    .page-hero__heading {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: 1.15;
+      color: #ffffff;
+      margin-bottom: 1.5rem;
+      max-width: 640px;
+    }
+
+    .page-hero__heading em { font-style: italic; color: var(--accent-yellow); }
+
+    .page-hero__subtext {
+      font-size: 1.05rem;
+      font-weight: 400;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.75);
+      max-width: 520px;
+    }
+
+    @media (max-width: 768px) { .page-hero { padding: 5rem 1.5rem 4rem; } }
+
+
+    /* ════════════════════════════════
+       CONTACT DETAILS
+    ════════════════════════════════ */
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    /* ── Left: contact details ── */
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      padding: 1.5rem 1.75rem;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      transition: border-color 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .contact-item:hover {
+      border-color: var(--green-border);
+      box-shadow: 0 4px 16px rgba(46,125,50,0.07);
+    }
+
+    .contact-item__icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--green-light);
+      border: 2px solid var(--green-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .contact-item__body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .contact-item__label {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+    }
+
+    .contact-item__value {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      transition: color 0.2s ease;
+    }
+
+    .contact-item__value:hover { color: var(--terracotta); }
+
+    .contact-item__note {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 0.15rem;
+    }
+
+    /* Social links row */
+    .contact-social {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.25rem;
+      border-radius: 6px;
+      border: 1.5px solid var(--border);
+      background: #ffffff;
+      font-family: var(--font-body);
+      font-size: 0.84rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      text-decoration: none;
+      transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease, transform 0.18s ease;
+    }
+
+    .social-btn:hover {
+      border-color: var(--terracotta);
+      background: var(--green-light);
+      color: var(--terracotta);
+      transform: translateY(-2px);
+    }
+
+    .social-btn__icon { font-size: 1.1rem; }
+
+    /* ── Right: contact form ── */
+
+    .contact-form {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2.75rem 2.5rem;
+    }
+
+    .contact-form__title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.35rem;
+      color: var(--charcoal);
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-form__subtitle {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: var(--charcoal);
+      background: #f9fafb;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      padding: 0.85rem 1rem;
+      outline: none;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      width: 100%;
+      -webkit-appearance: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--terracotta);
+      background: #ffffff;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 130px;
+      line-height: 1.7;
+    }
+
+    /* Two-column row for name + email */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-submit {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.92rem;
+      letter-spacing: 0.04em;
+      padding: 1rem 2.5rem;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      background: var(--terracotta);
+      color: #ffffff;
+      width: 100%;
+      margin-top: 0.5rem;
+      transition: background 0.22s ease, transform 0.18s ease;
+    }
+
+    .form-submit:hover {
+      background: var(--terracotta-dark);
+      transform: translateY(-1px);
+    }
+
+    .form-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 0.85rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 900px) {
+      .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+    }
+
+    @media (max-width: 560px) {
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form { padding: 2rem 1.5rem; }
+    }
+
+
+    /* ════════════════════════════════
+       ACTION STRIP
+    ════════════════════════════════ */
+
+    .action-strip {
+      background: var(--warm-mid);
+      padding: 5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .action-strip::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(46,125,50,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .action-strip__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .action-block {
+      padding: 2.5rem 2.25rem;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .action-block--donate {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .action-block--volunteer {
+      background: rgba(212,160,23,0.08);
+      border: 1px solid rgba(212,160,23,0.2);
+    }
+
+    .action-block__icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .action-block__title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.35rem;
+      color: #ffffff;
+    }
+
+    .action-block__text {
+      font-size: 0.92rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.68);
+      flex-grow: 1;
+    }
+
+    .action-block__btn {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 0.04em;
+      padding: 0.9rem 2rem;
+      border-radius: 4px;
+      text-decoration: none;
+      align-self: flex-start;
+      transition: transform 0.18s ease, opacity 0.18s ease;
+    }
+
+    .action-block__btn:hover { transform: translateY(-2px); opacity: 0.9; }
+
+    .action-block__btn--yellow {
+      background: var(--accent-yellow);
+      color: #1a3a2a;
+    }
+
+    .action-block__btn--outline {
+      background: transparent;
+      color: #ffffff;
+      border: 2px solid rgba(255,255,255,0.4);
+    }
+
+    .action-block__btn--outline:hover {
+      border-color: #ffffff;
+    }
+
+    @media (max-width: 768px) {
+      .action-strip { padding: 4rem 1.5rem; }
+      .action-strip__inner { grid-template-columns: 1fr; }
+    }
+
+
+    /* ════════════════════════════════
+       FOOTER
+    ════════════════════════════════ */
+
+    .footer {
+      background-color: var(--warm-mid);
+      padding: 2.5rem 4rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer__brand { display: flex; align-items: center; gap: 10px; }
+    .footer__logo { width: 34px; height: 34px; border-radius: 50%; object-fit: contain; }
+    .footer__name { font-weight: 600; font-size: 0.88rem; color: rgba(255,255,255,0.85); }
+    .footer__copy { font-size: 0.78rem; color: rgba(255,255,255,0.4); }
+    .footer__links { display: flex; gap: 2rem; list-style: none; }
+    .footer__links a { font-size: 0.8rem; color: rgba(255,255,255,0.5); transition: color 0.2s ease; }
+    .footer__links a:hover { color: rgba(255,255,255,0.9); }
+
+    @media (max-width: 600px) {
+      .footer { padding: 2rem 1.5rem; }
+      .footer__inner { flex-direction: column; align-items: flex-start; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════
+       NAVIGATION
+  ════════════════════════════════ -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+
+    <a href="index.html" class="nav__brand">
+      <img src="images/WhatsApp Image 2026-04-01 at 20.40.00 (1).jpeg" alt="Logo" class="nav__logo" />
+      <span class="nav__brand-name">Comfort Precinct Foundation</span>
+    </a>
+
+    <button class="nav__toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav__links" id="navLinks">
+
+      <li class="nav__item nav__item--dropdown">
+        <a href="index.html">Home</a>
+        <div class="nav__dropdown">
+          <a href="index.html#about">About (Overview)</a>
+          <a href="index.html#projects">Projects</a>
+          <a href="index.html#donate">Donate / Volunteer</a>
+        </div>
+      </li>
+
+      <li class="nav__item nav__item--dropdown">
+        <a href="about.html">About</a>
+        <div class="nav__dropdown">
+          <a href="about.html#overview">Overview</a>
+          <a href="about.html#history">History</a>
+          <a href="about.html#board">Board of Trustees</a>
+          <a href="about.html#constitution">Constitution</a>
+          <a href="about.html#coworking">Co-Working Space</a>
+          <a href="about.html#programmes">Programme Areas</a>
+          <a href="about.html#gallery">Gallery</a>
+        </div>
+      </li>
+
+      <li class="nav__item nav__item--dropdown">
+        <a href="projects.html">Projects</a>
+        <div class="nav__dropdown">
+          <a href="projects.html#current">Current Projects</a>
+          <a href="projects.html#previous">Previous Projects</a>
+        </div>
+      </li>
+
+      <li class="nav__item">
+        <a href="contact.html" class="active">Contact</a>
+      </li>
+
+    </ul>
+  </nav>
+
+
+  <!-- ════════════════════════════════
+       PAGE HERO
+  ════════════════════════════════ -->
+  <header class="page-hero">
+    <div class="page-hero__inner">
+      <span class="page-hero__label">Get in Touch</span>
+      <h1 class="page-hero__heading">
+        We'd love to<br>
+        <em>hear from you</em>
+      </h1>
+      <p class="page-hero__subtext">
+        Whether you want to donate, volunteer, partner with us, or simply
+        learn more, reach out. Every message matters and we respond to each one personally.
+      </p>
+    </div>
+  </header>
+
+
+  <!-- ════════════════════════════════
+       SECTION 1: CONTACT DETAILS + FORM
+  ════════════════════════════════ -->
+  <section class="section" id="details" aria-labelledby="details-heading">
+    <div class="section__inner">
+
+      <span class="eyebrow">Reach Us</span>
+      <h2 class="section__heading" id="details-heading">
+        Contact <em>Details</em>
+      </h2>
+      <div class="section__divider"></div>
+
+      <div class="contact-layout">
+
+        <!-- LEFT: Contact info -->
+        <div>
+          <p class="section__body" style="margin-bottom: 2rem;">
+            We are a small but dedicated team. You will always reach a real person
+            when you contact us — someone who cares about the same things you do.
+          </p>
+
+          <div class="contact-details">
+
+            <!-- Email -->
+            <div class="contact-item">
+              <div class="contact-item__icon">✉️</div>
+              <div class="contact-item__body">
+                <span class="contact-item__label">Email</span>
+                <a href="mailto:folashadeyewande@gmail.com" class="contact-item__value">
+                  comfortprecinct90@gmail.com
+                </a>
+                <span class="contact-item__note">We respond within 24–48 hours</span>
+              </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="contact-item">
+              <div class="contact-item__icon">📞</div>
+              <div class="contact-item__body">
+                <span class="contact-item__label">Phone</span>
+                <a href="tel:+2348158536960" class="contact-item__value">
+                  08158536960
+                </a>
+                <span class="contact-item__note">Available Monday – Friday, 9am – 5pm</span>
+              </div>
+            </div>
+
+            <!-- WhatsApp -->
+            <div class="contact-item">
+              <div class="contact-item__icon">💬</div>
+              <div class="contact-item__body">
+                <span class="contact-item__label">WhatsApp</span>
+                <a href="https://wa.me/2348158536960" class="contact-item__value" target="_blank" rel="noopener">
+                  +234 815 853 6960
+                </a>
+                <span class="contact-item__note">Message us directly on WhatsApp</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Social media -->
+          <div style="margin-top: 2.5rem;">
+            <p style="font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem;">
+              Find us on social media
+            </p>
+            <div class="contact-social">
+
+              <a href= "https://www.instagram.com/comfortprecinct90/?hl=en" class="social-btn" aria-label="Instagram">
+                <span class="social-btn__icon">📸</span>
+                Instagram
+              </a>
+
+              <a href="#" class="social-btn" aria-label="Facebook">
+                <span class="social-btn__icon">👥</span>
+                Facebook
+              </a>
+
+              <a href= "https://x.com/CPrecinct26535" class="social-btn" aria-label="Twitter / X">
+                <span class="social-btn__icon">𝕏</span>
+                Twitter / X
+              </a>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Contact form -->
+        <div class="contact-form" id="form">
+
+          <h3 class="contact-form__title">Send us a message</h3>
+          <p class="contact-form__subtitle">
+            Fill in the form below and we'll get back to you as soon as possible.
+          </p>
+
+          <!--
+            NOTE: This is a frontend-only form.
+            To make it functional, connect it to a service like
+            Formspree (formspree.io) by setting action="https://formspree.io/f/YOUR_ID"
+            and method="POST" on the form element.
+          -->
+           <form id="contactForm" action="https://formspree.io/f/xlgajglg" method="POST" novalidate>
+
+  <input type="hidden" name="_subject" value="New message from CPF website" />
+
+  <div class="form-row">
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input type="text" id="firstName" name="firstName" placeholder="e.g. Amaka" required />
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input type="text" id="lastName" name="lastName" placeholder="e.g. Okafor" required />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email Address</label>
+    <input type="email" id="email" name="email" placeholder="your@email.com" required />
+  </div>
+
+  <div class="form-group">
+    <label for="subject">I want to...</label>
+    <select id="subject" name="subject">
+      <option value="" disabled selected>Select a reason</option>
+      <option value="donate">Make a donation</option>
+      <option value="volunteer">Volunteer with you</option>
+      <option value="partner">Explore a partnership</option>
+      <option value="media">Media / Press enquiry</option>
+      <option value="general">General enquiry</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="message">Your Message</label>
+    <textarea id="message" name="message" required></textarea>
+  </div>
+
+<button type="submit" class="form-submit">Send Message</button>
+
+  <p class="form-note">
+    We read every message personally and will respond within 1–2 business days.
+  </p>
+
+</form>
+          <!-- Success message — shown by JS after submission -->
+          <div id="formSuccess" style="display: none; text-align: center; padding: 2rem 0;">
+            <div style="font-size: 2.5rem; margin-bottom: 1rem;">✅</div>
+            <h3 style="font-family: var(--font-heading); font-size: 1.2rem; color: var(--charcoal); margin-bottom: 0.5rem;">Message received!</h3>
+            <p style="font-size: 0.92rem; color: var(--muted);">Thank you for reaching out. We'll get back to you within 1–2 business days.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════
+       ACTION STRIP: DONATE + VOLUNTEER
+  ════════════════════════════════ -->
+  <div class="action-strip" id="act" aria-label="Take action">
+    <div class="action-strip__inner">
+
+      <!-- Donate -->
+      <div class="action-block action-block--donate">
+        <div class="action-block__icon">💛</div>
+        <h3 class="action-block__title">Make a Donation</h3>
+        <p class="action-block__text">
+          Your financial support directly funds our projects —
+          from food parcels for widows to school fees for children
+          who would otherwise be left behind.
+        </p>
+        <a href="donate.html" class="action-block__btn action-block__btn--yellow" target="_blank" rel="noopener">
+          Donate Now
+        </a>
+      </div>
+
+      <!-- Volunteer -->
+      <div class="action-block action-block--volunteer">
+        <div class="action-block__icon">🤝</div>
+        <h3 class="action-block__title">Become a Volunteer</h3>
+        <p class="action-block__text">
+          We are always looking for compassionate, committed individuals
+          to join our team on the ground. Your time is one of the most
+          powerful gifts you can give.
+        </p>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScC0jeMXhcGCuDGvqhB6yumILysWPJ8fpvIY9W8cEHIuHaJWw/viewform?usp=publish-editor" class="action-block__btn action-block__btn--outline" target="_blank" rel="noopener">
+          Volunteer Form
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════
+       FOOTER
+  ════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <img src="images/WhatsApp Image 2026-04-01 at 20.40.00 (1).jpeg" alt="Logo" class="footer__logo" />
+        <span class="footer__name">Comfort Precinct Foundation</span>
+      </div>
+      <p class="footer__copy">&copy; 2026 Comfort Precinct Foundation. All rights reserved.</p>
+      <ul class="footer__links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+
+
+  <script>
+
+    // ── NAVIGATION ──
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    document.querySelectorAll('.nav__item--dropdown > a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          link.parentElement.classList.toggle('open');
+        }
+      });
+    });
+
+    document.querySelectorAll('.nav__dropdown a, .nav__item:not(.nav__item--dropdown) > a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        document.querySelectorAll('.nav__item--dropdown').forEach(i => i.classList.remove('open'));
+      });
+    });
+    // ── CONTACT FORM ──
+// Submits to Formspree which emails the message to the organisation.
+// The organisation will receive an email for every submission.
+
+const form        = document.getElementById('contactForm');
+const formSuccess = document.getElementById('formSuccess');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  // Basic validation — highlight empty required fields
+  const required = form.querySelectorAll('[required]');
+  let valid = true;
+
+  required.forEach(field => {
+    if (!field.value.trim()) {
+      valid = false;
+      field.style.borderColor = '#ef4444';
+      field.addEventListener('input', () => {
+        field.style.borderColor = '';
+      }, { once: true });
+    }
+  });
+
+  if (!valid) return;
+
+  // Show a sending state on the button
+  const btn = form.querySelector('.form-submit');
+  const originalText = btn.textContent;
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+  btn.style.opacity = '0.7';
+
+  try {
+    // Send the form data to Formspree
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (response.ok) {
+      // Success — hide form, show thank you message
+      form.style.display = 'none';
+      formSuccess.style.display = 'block';
+    } else {
+      // Formspree returned an error
+      btn.textContent = 'Something went wrong. Try again.';
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      btn.style.background = '#dc2626';
+    }
+
+  } catch (error) {
+    // Network error
+    btn.textContent = 'Could not send. Check your connection.';
+    btn.disabled = false;
+    btn.style.opacity = '1';
+    btn.style.background = '#dc2626';
+  }
+});
+
+  </script>
+
+</body>
+</html>

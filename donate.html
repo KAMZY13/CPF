@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Donate — Comfort Precinct Foundation</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --cream: #ffffff;
+      --charcoal: #1a1a1a;
+      --warm-mid: #1a3a2a;
+      --terracotta: #2e7d32;
+      --terracotta-dark: #1b5e20;
+      --muted: #5a6472;
+      --border: #e5e7eb;
+      --accent-yellow: #d4a017;
+      --bg-soft: #f4f7f4;
+      --green-light: #e8f5e9;
+      --green-border: #c8e6c9;
+      --font-body: 'Inter', sans-serif;
+      --font-heading: 'Playfair Display', serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.85;
+      letter-spacing: 0.01em;
+      background-color: var(--cream);
+      color: var(--charcoal);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    p { font-family: var(--font-body); font-weight: 400; line-height: 1.85; }
+    h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; letter-spacing: -0.01em; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+
+    /* ════════════════════════════════
+       NAVIGATION
+    ════════════════════════════════ */
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 0 4rem;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav__brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav__logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: contain;
+    }
+
+    .nav__brand-name {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--terracotta);
+      letter-spacing: 0.02em;
+    }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      list-style: none;
+    }
+
+    .nav__item { position: relative; }
+
+    .nav__item > a {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      transition: color 0.2s ease;
+      position: relative;
+      padding: 0 1.25rem;
+      height: 68px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav__item > a:hover { color: var(--terracotta); }
+
+    .nav__item > a.active {
+      color: var(--terracotta);
+      font-weight: 600;
+    }
+
+    .nav__item > a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 1.25rem;
+      right: 1.25rem;
+      height: 2px;
+      background-color: var(--terracotta);
+      border-radius: 2px 2px 0 0;
+    }
+
+    .nav__item--dropdown > a::before {
+      content: '▾';
+      font-size: 0.65rem;
+      margin-left: 0.35rem;
+      opacity: 0.5;
+      display: inline-block;
+    }
+
+    .nav__dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 220px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--terracotta);
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      padding: 0.5rem 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(6px);
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+      pointer-events: none;
+    }
+
+    .nav__item--dropdown:hover .nav__dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      pointer-events: all;
+    }
+
+    .nav__dropdown a {
+      display: block;
+      padding: 0.65rem 1.25rem;
+      font-family: var(--font-body);
+      font-size: 0.84rem;
+      font-weight: 400;
+      color: #4b5563;
+      text-decoration: none;
+      transition: background 0.15s ease, color 0.15s ease;
+      border-left: 3px solid transparent;
+    }
+
+    .nav__dropdown a:hover {
+      background: #f4f7f4;
+      color: var(--terracotta);
+      border-left-color: var(--terracotta);
+    }
+
+    .nav__toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+
+    .nav__toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background-color: var(--charcoal);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    @media (max-width: 768px) {
+      .nav { padding: 0 1.5rem; }
+      .nav__toggle { display: flex; }
+      .nav__links {
+        display: none;
+        position: absolute;
+        top: 68px;
+        left: 0;
+        right: 0;
+        background: #ffffff;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        border-bottom: 1px solid var(--border);
+        padding: 0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      }
+      .nav__links.open { display: flex; }
+      .nav__item > a { height: auto; padding: 0.9rem 1.5rem; display: block; border-bottom: 1px solid #f3f4f6; }
+      .nav__item > a.active::after { display: none; }
+      .nav__item--dropdown > a::before { display: none; }
+      .nav__dropdown {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+        background: #f9fafb;
+        padding: 0;
+        pointer-events: all;
+        display: none;
+      }
+      .nav__item--dropdown.open .nav__dropdown { display: block; }
+      .nav__dropdown a { padding: 0.7rem 2rem; font-size: 0.82rem; border-bottom: 1px solid #f0f0f0; border-left: none; }
+    }
+
+
+    /* ════════════════════════════════
+       PAGE HERO
+    ════════════════════════════════ */
+
+    .page-hero {
+      background-color: var(--warm-mid);
+      padding: 7rem 4rem 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(46,125,50,0.3) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .page-hero__inner {
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .page-hero__label {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent-yellow);
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+
+    .page-hero__heading {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      line-height: 1.15;
+      color: #ffffff;
+      margin-bottom: 1.5rem;
+    }
+
+    .page-hero__heading em {
+      font-style: italic;
+      color: var(--accent-yellow);
+    }
+
+    .page-hero__subtext {
+      font-size: 1.05rem;
+      font-weight: 400;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.78);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .page-hero { padding: 5rem 1.5rem 4rem; }
+    }
+
+
+    /* ════════════════════════════════
+       MAIN DONATE SECTION
+    ════════════════════════════════ */
+
+    .donate-section {
+      padding: 6rem 4rem 7rem;
+      background-color: var(--bg-soft);
+    }
+
+    .donate-section__inner {
+      max-width: 680px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      .donate-section { padding: 4rem 1.5rem 5rem; }
+    }
+
+
+    /* ── BANK DETAILS CARD ── */
+
+    .bank-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    }
+
+    .bank-card__header {
+      background: var(--warm-mid);
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .bank-card__header-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .bank-card__header-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .bank-card__header-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .bank-card__header-title {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .bank-card__body {
+      padding: 2rem 2rem 0;
+    }
+
+    .bank-field {
+      padding: 1.25rem 0;
+      border-bottom: 1px solid #f3f4f6;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .bank-field:last-of-type {
+      border-bottom: none;
+    }
+
+    .bank-field__label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .bank-field__value {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      letter-spacing: 0.01em;
+    }
+
+    /* Account number row — value + copy button side by side */
+    .bank-field__row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .bank-field__account {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      letter-spacing: 0.08em;
+    }
+
+    /* Copy button */
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--terracotta);
+      background: var(--green-light);
+      border: 1.5px solid var(--green-border);
+      border-radius: 20px;
+      padding: 0.3rem 0.85rem;
+      cursor: pointer;
+      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .copy-btn:hover {
+      background: var(--terracotta);
+      color: #ffffff;
+      border-color: var(--terracotta);
+    }
+
+    .copy-btn.copied {
+      background: var(--terracotta);
+      color: #ffffff;
+      border-color: var(--terracotta);
+    }
+
+    .bank-card__note {
+      background: #fffbeb;
+      border-top: 1px solid #fde68a;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+    }
+
+    .bank-card__note-icon {
+      font-size: 0.95rem;
+      margin-top: 0.1rem;
+      flex-shrink: 0;
+    }
+
+    .bank-card__note-text {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #78350f;
+      line-height: 1.6;
+    }
+
+
+    /* ── STEPS BLOCK ── */
+
+    .steps-block {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .steps-block__heading {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 1.5rem;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 0 1.25rem;
+      position: relative;
+    }
+
+    /* Connector line between steps */
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 21px;
+      top: 44px;
+      bottom: -1px;
+      width: 2px;
+      background: var(--green-border);
+    }
+
+    .step__num-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 0;
+    }
+
+    .step__num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--warm-mid);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 600;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step__content {
+      padding-bottom: 2.25rem;
+    }
+
+    .step:last-child .step__content {
+      padding-bottom: 0;
+    }
+
+    .step__title {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.97rem;
+      color: var(--charcoal);
+      margin-bottom: 0.3rem;
+      padding-top: 0.6rem;
+    }
+
+    .step__desc {
+      font-size: 0.9rem;
+      color: #6b7280;
+      line-height: 1.75;
+    }
+
+
+    /* ── CONFIRM BUTTON ── */
+
+    .confirm-block {
+      text-align: center;
+    }
+
+    .confirm-btn {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+      color: #1a3a2a;
+      background: var(--accent-yellow);
+      border: none;
+      border-radius: 4px;
+      padding: 1.1rem 3rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.18s ease, box-shadow 0.2s ease;
+    }
+
+    .confirm-btn:hover {
+      background: #c49010;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212,160,23,0.4);
+    }
+
+    .confirm-block__note {
+      margin-top: 0.85rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+
+    /* ── TRANSPARENCY LINE ── */
+
+    .trust-block {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--terracotta);
+      border-radius: 0 8px 8px 0;
+      padding: 1.5rem 1.75rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+    }
+
+    .trust-block__icon {
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+
+    .trust-block__text {
+      font-size: 0.92rem;
+      line-height: 1.78;
+      color: #374151;
+    }
+
+    .trust-block__text strong {
+      color: var(--charcoal);
+      font-weight: 600;
+    }
+
+
+    /* ── THANK YOU / CLOSING ── */
+
+    .closing {
+      text-align: center;
+      padding-top: 1rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .closing__line {
+      width: 40px;
+      height: 2px;
+      background: var(--accent-yellow);
+      border-radius: 2px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .closing__text {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .closing__text em {
+      font-style: normal;
+      color: var(--terracotta);
+      font-weight: 600;
+    }
+
+
+    /* ════════════════════════════════
+       FOOTER
+    ════════════════════════════════ */
+
+    .footer {
+      background-color: var(--warm-mid);
+      padding: 2.5rem 4rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer__brand { display: flex; align-items: center; gap: 10px; }
+
+    .footer__logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      object-fit: contain;
+    }
+
+    .footer__name {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .footer__copy {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .footer__links { display: flex; gap: 2rem; list-style: none; }
+
+    .footer__links a {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+      transition: color 0.2s ease;
+    }
+
+    .footer__links a:hover { color: rgba(255,255,255,0.9); }
+
+    @media (max-width: 600px) {
+      .footer { padding: 2rem 1.5rem; }
+      .footer__inner { flex-direction: column; align-items: flex-start; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════
+       NAVIGATION
+  ════════════════════════════════ -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+
+    <a href="index.html" class="nav__brand">
+      <img src="images/WhatsApp Image 2026-04-01 at 20.40.00 (1).jpeg" alt="Logo" class="nav__logo" />
+      <span class="nav__brand-name">Comfort Precinct Foundation</span>
+    </a>
+
+    <button class="nav__toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav__links" id="navLinks">
+
+      <li class="nav__item nav__item--dropdown">
+        <a href="index.html">Home</a>
+        <div class="nav__dropdown">
+          <a href="index.html#about">About (Overview)</a>
+          <a href="index.html#projects">Projects</a>
+          <a href="index.html#donate">Donate / Volunteer</a>
+        </div>
+      </li>
+
+      <li class="nav__item nav__item--dropdown">
+        <a href="about.html">About</a>
+        <div class="nav__dropdown">
+          <a href="about.html#overview">Overview</a>
+          <a href="about.html#history">History</a>
+          <a href="about.html#board">Board of Trustees</a>
+          <a href="about.html#constitution">Constitution</a>
+          <a href="about.html#coworking">Co-Working Space</a>
+          <a href="about.html#programmes">Programme Areas</a>
+          <a href="about.html#gallery">Gallery</a>
+        </div>
+      </li>
+
+      <li class="nav__item nav__item--dropdown">
+        <a href="projects.html">Projects</a>
+        <div class="nav__dropdown">
+          <a href="projects.html#current">Current Projects</a>
+          <a href="projects.html#previous">Previous Projects</a>
+          <a href="projects.html#gallery">Gallery</a>
+        </div>
+      </li>
+
+      <li class="nav__item">
+        <a href="contact.html">Contact</a>
+      </li>
+
+      <li class="nav__item">
+        <a href="donate.html" class="active">Donate</a>
+      </li>
+
+    </ul>
+  </nav>
+
+
+  <!-- ════════════════════════════════
+       PAGE HERO
+  ════════════════════════════════ -->
+  <header class="page-hero">
+    <div class="page-hero__inner">
+      <span class="page-hero__label">Make a Difference</span>
+      <h1 class="page-hero__heading">Support <em>Our Work</em></h1>
+      <p class="page-hero__subtext">
+        Your support helps us reach more lives through our outreach, education,
+        and empowerment programmes. Every contribution is put to direct use.
+      </p>
+    </div>
+  </header>
+
+
+  <!-- ════════════════════════════════
+       MAIN DONATE SECTION
+  ════════════════════════════════ -->
+  <main class="donate-section" id="donate">
+    <div class="donate-section__inner">
+
+
+      <!-- ── BANK DETAILS CARD ── -->
+      <div class="bank-card" role="region" aria-label="Bank transfer details">
+
+        <div class="bank-card__header">
+          <div class="bank-card__header-icon">🏦</div>
+          <div class="bank-card__header-text">
+            <span class="bank-card__header-label">Donation Method</span>
+            <span class="bank-card__header-title">Bank Transfer</span>
+          </div>
+        </div>
+
+        <div class="bank-card__body">
+
+          <div class="bank-field">
+            <span class="bank-field__label">Bank Name</span>
+            <span class="bank-field__value">Fidelity Bank</span>
+          </div>
+
+          <div class="bank-field">
+            <span class="bank-field__label">Account Name</span>
+            <span class="bank-field__value">Afolabi Folasade Olubusola</span>
+          </div>
+
+          <div class="bank-field">
+            <span class="bank-field__label">Account Number</span>
+            <div class="bank-field__row">
+              <span class="bank-field__account" id="accountNumber">6980632016</span>
+              <button class="copy-btn" id="copyBtn" onclick="copyAccountNumber()" aria-label="Copy account number">
+                <span id="copyIcon">⧉</span>
+                <span id="copyText">Copy</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="bank-card__note">
+          <span class="bank-card__note-icon">📝</span>
+          <span class="bank-card__note-text">
+            Please use <strong>your full name</strong> as the transfer reference so we can identify your donation.
+          </span>
+        </div>
+
+      </div>
+
+
+      <!-- ── STEP-BY-STEP FLOW ── -->
+      <div class="steps-block" role="region" aria-label="Donation steps">
+        <p class="steps-block__heading">How It Works</p>
+
+        <div class="step">
+          <div class="step__num-col">
+            <div class="step__num">1</div>
+          </div>
+          <div class="step__content">
+            <h3 class="step__title">Make your transfer</h3>
+            <p class="step__desc">Use the bank details above to make a transfer from your bank app, USSD, or at any branch. Use your name as the reference.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step__num-col">
+            <div class="step__num">2</div>
+          </div>
+          <div class="step__content">
+            <h3 class="step__title">Confirm your donation</h3>
+            <p class="step__desc">Click the button below to fill a short form. This helps us track your donation and reach out to acknowledge your support.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step__num-col">
+            <div class="step__num">3</div>
+          </div>
+          <div class="step__content">
+            <h3 class="step__title">We verify and acknowledge</h3>
+            <p class="step__desc">Our team will confirm your transfer and send an acknowledgement. Your contribution goes directly to funding our active programmes.</p>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- ── CONFIRM BUTTON ── -->
+      <div class="confirm-block">
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLSfpYpVlGrZ8MNvTkjrE8x_h459d2kb52DWkk5hdZPTVqLQWZg/viewform?usp=header"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="confirm-btn"
+        >
+          Confirm Your Donation →
+        </a>
+        <p class="confirm-block__note">
+          Takes less than 2 minutes &nbsp;·&nbsp; No account required
+        </p>
+      </div>
+
+
+      <!-- ── TRUST / TRANSPARENCY LINE ── -->
+      <div class="trust-block" role="note">
+        <span class="trust-block__icon">🔒</span>
+        <p class="trust-block__text">
+          <strong>We are committed to transparency and accountability.</strong>
+          Every donation is carefully tracked and used to support real community impact.
+          You can review our projects and history on our
+          <a href="projects.html" style="color: var(--terracotta); font-weight: 600;">Projects page</a>.
+        </p>
+      </div>
+
+
+      <!-- ── CLOSING / THANK YOU ── -->
+      <div class="closing">
+        <div class="closing__line"></div>
+        <p class="closing__text">
+          Every contribution matters.<br>
+          Thank you for being part of <em>the work</em>.
+        </p>
+      </div>
+
+
+    </div>
+  </main>
+
+
+  <!-- ════════════════════════════════
+       FOOTER
+  ════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <img src="images/WhatsApp Image 2026-04-01 at 20.40.00 (1).jpeg" alt="Logo" class="footer__logo" />
+        <span class="footer__name">Comfort Precinct Foundation</span>
+      </div>
+      <p class="footer__copy">&copy; 2026 Comfort Precinct Foundation. All rights reserved.</p>
+      <ul class="footer__links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+
+
+  <script>
+    // ── NAVIGATION ──
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    document.querySelectorAll('.nav__item--dropdown > a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          link.parentElement.classList.toggle('open');
+        }
+      });
+    });
+
+    document.querySelectorAll('.nav__dropdown a, .nav__item:not(.nav__item--dropdown) > a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        document.querySelectorAll('.nav__item--dropdown').forEach(i => i.classList.remove('open'));
+      });
+    });
+
+    // ── COPY ACCOUNT NUMBER ──
+    function copyAccountNumber() {
+      const number = document.getElementById('accountNumber').innerText;
+      const btn    = document.getElementById('copyBtn');
+      const icon   = document.getElementById('copyIcon');
+      const text   = document.getElementById('copyText');
+
+      navigator.clipboard.writeText(number).then(() => {
+        btn.classList.add('copied');
+        icon.textContent = '✓';
+        text.textContent = 'Copied';
+
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          icon.textContent = '⧉';
+          text.textContent = 'Copy';
+        }, 2500);
+      }).catch(() => {
+        // Fallback for older browsers
+        const el = document.createElement('textarea');
+        el.value = number;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+
+        btn.classList.add('copied');
+        icon.textContent = '✓';
+        text.textContent = 'Copied';
+
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          icon.textContent = '⧉';
+          text.textContent = 'Copy';
+        }, 2500);
+      });
+    }
+  </script>
+
+</body>
+</html>

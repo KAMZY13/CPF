@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — Comfort Precinct Foundation</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+
+    /* ── RESET ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ── CSS VARIABLES ── */
+    :root {
+      --cream: #ffffff;
+      --charcoal: #1a1a1a;
+      --warm-mid: #1a3a2a;
+      --green: #2e7d32;
+      --green-dark: #1b5e20;
+      --green-light: #e8f5e9;
+      --green-border: #c8e6c9;
+      --muted: #5a6472;
+      --border: #e5e7eb;
+      --yellow: #d4a017;
+      --yellow-light: #fef9c3;
+      --yellow-border: #fde68a;
+      --bg-soft: #f4f7f4;
+      --font-body: 'Inter', sans-serif;
+      --font-heading: 'Playfair Display', serif;
+    }
+
+    /* ── BASE ── */
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.85;
+      letter-spacing: 0.01em;
+      background-color: var(--cream);
+      color: var(--charcoal);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    p { font-family: var(--font-body); font-weight: 400; line-height: 1.85; }
+    h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; letter-spacing: -0.01em; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+
+    /* ════════════════════════════════
+       SHARED NAVIGATION
+    ════════════════════════════════ */
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 0 4rem;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav__brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav__logo { width: 38px; height: 38px; border-radius: 50%; object-fit: contain; }
+    .nav__brand-name { font-family: var(--font-body); font-weight: 600; font-size: 0.9rem; color: var(--green); letter-spacing: 0.02em; }
+    .nav__links { display: flex; align-items: center; gap: 0; list-style: none; }
+    .nav__item { position: relative; }
+
+    .nav__item > a {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      transition: color 0.2s ease;
+      position: relative;
+      padding: 0 1.25rem;
+      height: 68px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav__item > a:hover { color: var(--green); }
+    .nav__item > a.active { color: var(--green); font-weight: 600; }
+
+    .nav__item > a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 1.25rem; right: 1.25rem;
+      height: 2px;
+      background-color: var(--green);
+      border-radius: 2px 2px 0 0;
+    }
+
+    .nav__item--dropdown > a::before {
+      content: '▾';
+      font-size: 0.65rem;
+      margin-left: 0.35rem;
+      opacity: 0.5;
+      display: inline-block;
+    }
+
+    .nav__dropdown {
+      position: absolute;
+      top: 100%; left: 0;
+      min-width: 220px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--green);
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      padding: 0.5rem 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(6px);
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+      pointer-events: none;
+    }
+
+    .nav__item--dropdown:hover .nav__dropdown {
+      opacity: 1; visibility: visible; transform: translateY(0); pointer-events: all;
+    }
+
+    .nav__dropdown a {
+      display: block;
+      padding: 0.65rem 1.25rem;
+      font-family: var(--font-body);
+      font-size: 0.84rem;
+      font-weight: 400;
+      color: #4b5563;
+      text-decoration: none;
+      transition: background 0.15s ease, color 0.15s ease;
+      border-left: 3px solid transparent;
+    }
+
+    .nav__dropdown a:hover { background: #f4f7f4; color: var(--green); border-left-color: var(--green); }
+
+    .nav__toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 4px; }
+    .nav__toggle span { display: block; width: 24px; height: 2px; background-color: var(--charcoal); border-radius: 2px; transition: all 0.3s ease; }
+
+    @media (max-width: 768px) {
+      .nav { padding: 0 1.5rem; }
+      .nav__toggle { display: flex; }
+      .nav__links {
+        display: none;
+        position: absolute;
+        top: 68px; left: 0; right: 0;
+        background: #ffffff;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        border-bottom: 1px solid var(--border);
+        padding: 0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      }
+      .nav__links.open { display: flex; }
+      .nav__item > a { height: auto; padding: 0.9rem 1.5rem; border-bottom: 1px solid #f3f4f6; display: block; }
+      .nav__item > a.active::after { display: none; }
+      .nav__item--dropdown > a::before { display: none; }
+      .nav__dropdown {
+        position: static; opacity: 1; visibility: visible; transform: none;
+        box-shadow: none; border: none; border-radius: 0;
+        background: #f9fafb; padding: 0; pointer-events: all; display: none;
+      }
+      .nav__item--dropdown.open .nav__dropdown { display: block; }
+      .nav__dropdown a { padding: 0.7rem 2rem; font-size: 0.82rem; border-bottom: 1px solid #f0f0f0; border-left: none; }
+    }
+
+
+    /* ════════════════════════════════
+       SHARED SECTION STYLES
+    ════════════════════════════════ */
+
+    .section { padding: 6rem 4rem; }
+    .section--alt { background-color: var(--bg-soft); }
+    .section--dark { background-color: var(--warm-mid); color: #ffffff; }
+    .section__inner { max-width: 1100px; margin: 0 auto; }
+
+    .eyebrow {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 0.85rem;
+      display: block;
+    }
+
+    .section--dark .eyebrow { color: var(--yellow); }
+
+    .section__heading {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      line-height: 1.25;
+      color: var(--charcoal);
+      margin-bottom: 1.25rem;
+    }
+
+    .section--dark .section__heading { color: #ffffff; }
+    .section__heading em { font-style: italic; color: var(--green); }
+    .section--dark .section__heading em { color: var(--yellow); }
+
+    .section__divider { width: 48px; height: 3px; background: var(--yellow); border-radius: 2px; margin-bottom: 2.5rem; }
+
+    .section__body { font-size: 1rem; font-weight: 400; line-height: 1.9; color: #374151; max-width: 720px; }
+    .section--dark .section__body { color: rgba(255,255,255,0.78); }
+
+    @media (max-width: 768px) { .section { padding: 4rem 1.5rem; } }
+
+
+    /* ════════════════════════════════
+       PAGE HERO
+    ════════════════════════════════ */
+
+    .page-hero {
+      background-color: var(--warm-mid);
+      padding: 7rem 4rem 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(46,125,50,0.3) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .page-hero__inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+
+    .page-hero__label {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+
+    .page-hero__heading {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: 1.15;
+      color: #ffffff;
+      margin-bottom: 1.5rem;
+      max-width: 640px;
+    }
+
+    .page-hero__heading em { font-style: italic; color: var(--yellow); }
+
+    .page-hero__subtext {
+      font-size: 1.05rem;
+      font-weight: 400;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.75);
+      max-width: 560px;
+    }
+
+    @media (max-width: 768px) { .page-hero { padding: 5rem 1.5rem 4rem; } }
+
+
+    /* ════════════════════════════════
+       1. OVERVIEW
+    ════════════════════════════════ */
+
+    .overview__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+      margin-top: 1rem;
+    }
+
+    .overview__image-placeholder {
+      width: 100%;
+      aspect-ratio: 5 / 3;
+      background-color: var(--green-light);
+      border: 2px dashed var(--green-border);
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      color: var(--green);
+      overflow: hidden;
+    }
+
+    .overview__image-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .overview__image-placeholder span { font-size: 2.5rem; }
+    .overview__image-placeholder p {
+      font-size: 0.82rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--green); opacity: 0.7;
+    }
+
+    .overview__stats { display: flex; gap: 2rem; margin-top: 2.5rem; flex-wrap: wrap; }
+    .overview__stat { display: flex; flex-direction: column; gap: 0.2rem; }
+    .overview__stat-num { font-family: var(--font-heading); font-size: 2rem; font-weight: 600; color: var(--green); line-height: 1; }
+    .overview__stat-label { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+    @media (max-width: 860px) { .overview__grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+
+    /* ════════════════════════════════
+       2. HISTORY (TIMELINE)
+    ════════════════════════════════ */
+
+    .timeline { position: relative; margin-top: 1rem; }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 18px; top: 8px; bottom: 8px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--green), var(--green-border));
+    }
+
+    .timeline__item { display: flex; gap: 2.5rem; padding-bottom: 3rem; position: relative; }
+    .timeline__item:last-child { padding-bottom: 0; }
+
+    .timeline__dot {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background-color: var(--green);
+      border: 3px solid #ffffff;
+      box-shadow: 0 0 0 3px var(--green-border);
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; z-index: 1;
+    }
+
+    .timeline__dot--yellow { background-color: var(--yellow); box-shadow: 0 0 0 3px var(--yellow-border); }
+    .timeline__dot-inner { width: 10px; height: 10px; border-radius: 50%; background: #ffffff; }
+    .timeline__content { padding-top: 0.4rem; flex: 1; }
+
+    .timeline__year {
+      font-family: var(--font-body); font-weight: 700; font-size: 0.75rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 0.4rem; display: block;
+    }
+
+    .timeline__title { font-family: var(--font-heading); font-weight: 600; font-size: 1.15rem; color: var(--charcoal); margin-bottom: 0.6rem; }
+    .timeline__text { font-size: 0.95rem; line-height: 1.82; color: #4b5563; }
+
+    @media (max-width: 600px) { .timeline__item { gap: 1.5rem; } .timeline::before { left: 15px; } }
+
+
+    /* ════════════════════════════════
+       3. BOARD OF TRUSTEES
+       CHANGED: Increased photo size for better visibility
+    ════════════════════════════════ */
+
+    .board__intro { margin-bottom: 3rem; }
+
+    .board__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+
+    .board__card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 2.5rem 1.75rem 2rem;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+    }
+
+    .board__card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(46,125,50,0.09);
+      border-color: var(--green-border);
+    }
+
+    /*
+      CHANGED: Increased photo container from 100px to 140px
+      so trustee photos are clearly visible and prominent
+    */
+    .board__photo {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 4px solid var(--green-border);
+      margin-bottom: 1.5rem;
+      flex-shrink: 0;
+      background-color: var(--green-light);
+      display: block;
+    }
+
+    .board__name { font-family: var(--font-heading); font-weight: 600; font-size: 1.05rem; color: var(--charcoal); margin-bottom: 0.3rem; }
+    .board__role { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); margin-bottom: 0.75rem; }
+    .board__bio { font-size: 0.88rem; line-height: 1.78; color: #6b7280; }
+
+    @media (max-width: 860px) { .board__grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; } }
+    @media (max-width: 560px) { .board__grid { grid-template-columns: 1fr; } }
+
+
+    /* ════════════════════════════════
+       4. CONSTITUTION
+    ════════════════════════════════ */
+
+    .constitution__layout { display: grid; grid-template-columns: 1fr 2fr; gap: 5rem; align-items: start; }
+    .constitution__sidebar { position: sticky; top: 90px; }
+    .constitution__sidebar-label { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; display: block; }
+
+    .constitution__toc { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+
+    .constitution__toc a {
+      font-size: 0.9rem; font-weight: 500; color: var(--muted);
+      transition: color 0.2s ease; display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    .constitution__toc a::before {
+      content: ''; display: block; width: 6px; height: 6px;
+      border-radius: 50%; background-color: var(--green-border);
+      flex-shrink: 0; transition: background-color 0.2s ease;
+    }
+
+    .constitution__toc a:hover { color: var(--green); }
+    .constitution__toc a:hover::before { background-color: var(--green); }
+
+    .constitution__content { display: flex; flex-direction: column; gap: 2.5rem; }
+
+    .constitution__article {
+      padding: 2rem 2.25rem;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--green);
+      border-radius: 0 8px 8px 0;
+    }
+
+    .constitution__article-title { font-family: var(--font-heading); font-weight: 600; font-size: 1.05rem; color: var(--charcoal); margin-bottom: 0.75rem; }
+    .constitution__article-text { font-size: 0.93rem; line-height: 1.85; color: #4b5563; }
+
+    .constitution__download {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      margin-top: 1rem; font-size: 0.85rem; font-weight: 600;
+      color: var(--green); border: 1.5px solid var(--green-border);
+      background: var(--green-light); padding: 0.6rem 1.25rem;
+      border-radius: 4px; transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .constitution__download:hover { background: #d4edda; border-color: var(--green); }
+
+    @media (max-width: 860px) {
+      .constitution__layout { grid-template-columns: 1fr; gap: 2rem; }
+      .constitution__sidebar { position: static; }
+      .constitution__toc { flex-direction: row; flex-wrap: wrap; gap: 0.75rem 1.5rem; }
+    }
+
+
+    /* ════════════════════════════════
+       5. CO-WORKING SPACE
+    ════════════════════════════════ */
+
+    .cowork__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; margin-top: 1rem; }
+
+    .cowork__features { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; }
+
+    .cowork__feature {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+    }
+
+    .cowork__feature-icon {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(212,160,23,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+
+    .cowork__feature-text { display: flex; flex-direction: column; gap: 0.2rem; }
+    .cowork__feature-title { font-family: var(--font-body); font-weight: 600; font-size: 0.9rem; color: #ffffff; }
+    .cowork__feature-desc { font-size: 0.85rem; line-height: 1.7; color: rgba(255,255,255,0.65); }
+
+    .cowork__images { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .cowork__img-placeholder {
+      aspect-ratio: 4 / 3;
+      background: rgba(255,255,255,0.07);
+      border: 1.5px dashed rgba(255,255,255,0.2);
+      border-radius: 8px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 0.5rem; color: rgba(255,255,255,0.4);
+    }
+
+    .cowork__img-placeholder span { font-size: 1.8rem; }
+    .cowork__img-placeholder p { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; }
+    .cowork__img-placeholder--large { grid-column: 1 / -1; aspect-ratio: 16 / 7; }
+
+    @media (max-width: 860px) { .cowork__grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+
+    /* ════════════════════════════════
+       6. PROGRAMME AREAS
+       CHANGED: Now shows 5 actual programme areas
+       with sub-activities listed under each
+    ════════════════════════════════ */
+
+    .programmes__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .programme__card {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 2.25rem 2rem;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+    }
+
+    .programme__card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(46,125,50,0.08);
+      border-color: var(--green-border);
+    }
+
+    .programme__card::before {
+      content: '';
+      display: block;
+      height: 3px;
+      background: var(--green);
+      width: 40px;
+      border-radius: 2px;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Helping Hands card gets yellow accent — visually distinct */
+    .programme__card--highlight::before {
+      background: var(--yellow);
+    }
+
+    .programme__card--highlight {
+      border-color: var(--yellow-border);
+      background: #fffdf5;
+    }
+
+    .programme__card--highlight:hover {
+      border-color: var(--yellow);
+      box-shadow: 0 10px 28px rgba(212,160,23,0.1);
+    }
+
+    .programme__icon {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: var(--green-light);
+      border: 2px solid var(--green-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+
+    /* Yellow icon bg for highlight card */
+    .programme__card--highlight .programme__icon {
+      background: var(--yellow-light);
+      border-color: var(--yellow-border);
+    }
+
+    .programme__title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--charcoal);
+      line-height: 1.3;
+    }
+
+    .programme__text {
+      font-size: 0.9rem;
+      line-height: 1.82;
+      color: #4b5563;
+    }
+
+    /* Sub-activities list under each programme */
+    .programme__list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-top: 0.25rem;
+    }
+
+    .programme__list li {
+      font-size: 0.84rem;
+      color: #6b7280;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      line-height: 1.6;
+    }
+
+    /* Green bullet dot before each activity */
+    .programme__list li::before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green-border);
+      flex-shrink: 0;
+      margin-top: 0.45rem;
+    }
+
+    .programme__card--highlight .programme__list li::before {
+      background: var(--yellow-border);
+    }
+
+    .programme__tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green);
+      background: var(--green-light);
+      border: 1.5px solid var(--green-border);
+      padding: 0.28rem 0.75rem;
+      border-radius: 20px;
+      align-self: flex-start;
+    }
+
+    .programme__card--highlight .programme__tag {
+      color: #92400e;
+      background: var(--yellow-light);
+      border-color: var(--yellow-border);
+    }
+
+    @media (max-width: 860px) { .programmes__grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; } }
+    @media (max-width: 560px) { .programmes__grid { grid-template-columns: 1fr; } }
+
+
+    /* ════════════════════════════════
+       FOOTER
+    ════════════════════════════════ */
+
+    .footer {
+      background-color: var(--warm-mid);
+      padding: 3rem 4rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer__brand { display: flex; align-items: center; gap: 10px; }
+    .footer__logo { width: 36px; height: 36px; border-radius: 50%; object-fit: contain; }
+    .footer__name { font-weight: 600; font-size: 0.88rem; color: rgba(255,255,255,0.85); }
+    .footer__copy { font-size: 0.8rem; color: rgba(255,255,255,0.45); }
+    .footer__links { display: flex; gap: 2rem; list-style: none; }
+    .footer__links a { font-size: 0.82rem; color: rgba(255,255,255,0.5); transition: color 0.2s ease; }
+    .footer__links a:hover { color: rgba(255,255,255,0.9); }
+
+    @media (max-width: 600px) {
+      .footer { padding: 2.5rem 1.5rem; }
+      .footer__inner { flex-direction: column; align-items: flex-start; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════
+       NAVIGATION
+  ════════════════════════════════ -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+
+    <a href="index.html" class="nav__brand">
+      <img src="images/WhatsApp Image 2026-04-01 at 20.40.00 (1).jpeg" alt="Comfort Precinct Foundation logo" class="nav__logo" />
+      <span class="nav__brand-name">Comfort Precinct Foundation</span>
+    </a>
+
+    <button class="nav__toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav__links" id="navLinks">
+
+      <li class="nav__item nav__item--dropdown">
+        <a href="index.html">Home</a>
+        <div class="nav__dropdown">
+          <a href="index.html#about">About (Overview)</a>
+          <a href="index.html#projects">Projects</a>
+          <a href="index.html#donate">Donate / Volunteer</a>
+        </div>
+      </li>
+
+      <li class="nav__item nav__item--dropdown">
+        <a href="about.html" class="active">About</a>
+        <div class="nav__dropdown">
+          <a href="about.html#overview">Overview</a>
+          <a href="about.html#history">History</a>
+          <a href="about.html#board">Board of Trustees</a>
+          <a href="about.html#constitution">Constitution</a>
+          <a href="about.html#coworking">Co-Working Space</a>
+          <a href="about.html#programmes">Programme Areas</a>
+        </div>
+      </li>
+
+      <li class="nav__item nav__item--dropdown">
+        <a href="projects.html">Projects</a>
+        <div class="nav__dropdown">
+          <a href="projects.html#current">Current Projects</a>
+          <a href="projects.html#previous">Previous Projects</a>
+        </div>
+      </li>
+
+      <li class="nav__item">
+        <a href="contact.html">Contact</a>
+      </li>
+
+    </ul>
+  </nav>
+
+
+  <!-- ════════════════════════════════
+       PAGE HERO
+  ════════════════════════════════ -->
+  <header class="page-hero">
+    <div class="page-hero__inner">
+      <span class="page-hero__label">About Us</span>
+      <h1 class="page-hero__heading">
+        The people and purpose<br>
+        behind <em>every action</em>
+      </h1>
+      <p class="page-hero__subtext">
+        We are a registered humanitarian organisation committed to standing with
+        vulnerable individuals and communities through structure, care,
+        and an unwavering belief that every person matters.
+      </p>
+    </div>
+  </header>
+
+
+  <!-- ════════════════════════════════
+       SECTION 1: OVERVIEW
+  ════════════════════════════════ -->
+  <section class="section" id="overview" aria-labelledby="overview-heading">
+    <div class="section__inner">
+
+      <span class="eyebrow">Overview</span>
+      <h2 class="section__heading" id="overview-heading">
+        Who we are and<br>what we <em>stand for</em>
+      </h2>
+      <div class="section__divider"></div>
+
+      <div class="overview__grid">
+
+        <div>
+          <p class="section__body">
+            Comfort Precinct Foundation is a non-governmental organisation founded
+            on <strong>October 18, 2018</strong>, with a clear and deliberate mission:
+            to stand in the gap for individuals and communities who need support the most.
+          </p>
+          <br>
+          <p class="section__body">
+            We operate through structured, constitution-backed initiatives that prioritise
+            dignity, accountability, and measurable outcomes. From prison outreach to widow
+            support and student sponsorship, our work is rooted in the belief that
+            compassion and action belong together.
+          </p>
+          <br>
+          <p class="section__body">
+            We are not just an organisation; we are a community of people committed to
+            showing up, doing the work, and leaving lives better than we found them.
+          </p>
+
+          <div class="overview__stats">
+            <div class="overview__stat">
+              <span class="overview__stat-num">2018</span>
+              <span class="overview__stat-label">Founded</span>
+            </div>
+            <div class="overview__stat">
+              <span class="overview__stat-num">3+</span>
+              <span class="overview__stat-label">Projects yearly</span>
+            </div>
+            <div class="overview__stat">
+              <span class="overview__stat-num">100%</span>
+              <span class="overview__stat-label">Transparent</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Overview image — unchanged -->
+        <div class="overview__image-placeholder">
+          <img src="images/j.jpeg" class="past-slide__img" />
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════
+       SECTION 2: HISTORY
+  ════════════════════════════════ -->
+  <section class="section section--alt" id="history" aria-labelledby="history-heading">
+    <div class="section__inner">
+
+      <span class="eyebrow">Our History</span>
+      <h2 class="section__heading" id="history-heading">
+        How we got <em>here</em>
+      </h2>
+      <div class="section__divider"></div>
+      <p class="section__body" style="margin-bottom: 3rem;">
+        Every organisation has a beginning. Ours began with a conviction that the most
+        vulnerable among us deserve more than sympathy, they deserve sustained,
+        structured support.
+      </p>
+
+      <div class="timeline">
+
+        <div class="timeline__item">
+          <div class="timeline__dot"><div class="timeline__dot-inner"></div></div>
+          <div class="timeline__content">
+            <span class="timeline__year">October 2018</span>
+            <h3 class="timeline__title">Foundation Established</h3>
+            <p class="timeline__text">
+              Comfort Precinct Foundation was officially founded on October 18, 2018.
+              A small team united by shared values, guided by a constitution and a determination to create
+              real, tangible impact in their community.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline__item">
+          <div class="timeline__dot timeline__dot--yellow"><div class="timeline__dot-inner"></div></div>
+          <div class="timeline__content">
+            <span class="timeline__year">2019</span>
+            <h3 class="timeline__title">First Major Projects Launched</h3>
+            <p class="timeline__text">
+              The organisation launched its first structured initiatives, reaching out
+              to widows, supporting students, and engaging elderly homes.
+              These early programmes shaped the foundation's identity and approach.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline__item">
+          <div class="timeline__dot"><div class="timeline__dot-inner"></div></div>
+          <div class="timeline__content">
+            <span class="timeline__year">2020 – 2022</span>
+            <h3 class="timeline__title">Growth Through Challenge</h3>
+            <p class="timeline__text">
+              Despite the difficulties of the global pandemic, the foundation continued
+              its work — adapting outreach methods and deepening community relationships.
+              Resilience became a defining characteristic of the team.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline__item">
+          <div class="timeline__dot timeline__dot--yellow"><div class="timeline__dot-inner"></div></div>
+          <div class="timeline__content">
+            <span class="timeline__year">2023-2024</span>
+            <h3 class="timeline__title">Growth That Reached More Lives</h3>
+            <p class="timeline__text">
+ The foundation experienced notable financial growth, which translated directly into action. More people received support, and more members of the community were reached with care, assistance, and practical help. A year where growth was felt not just internally, but in people’s lives.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline__item">
+          <div class="timeline__dot"><div class="timeline__dot-inner"></div></div>
+          <div class="timeline__content">
+            <span class="timeline__year">2025 – Present</span>
+            <h3 class="timeline__title">Scaling Impact</h3>
+            <p class="timeline__text">
+              With a growing network of volunteers, trustees, and community partners,
+              the foundation continues to expand its reach — running focused annual
+              projects that create lasting change for those who need it most.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════
+       SECTION 3: BOARD OF TRUSTEES
+       CHANGED: Photo size increased, bios polished
+  ════════════════════════════════ -->
+  <section class="section" id="board" aria-labelledby="board-heading">
+    <div class="section__inner">
+
+      <span class="eyebrow">Leadership</span>
+      <h2 class="section__heading" id="board-heading">
+        Board of <em>Trustees</em>
+      </h2>
+      <div class="section__divider"></div>
+
+      <p class="section__body board__intro">
+        Our board is made up of dedicated individuals who bring wisdom, experience,
+        and genuine care to the governance of this organisation. They ensure that
+        every decision serves our mission and the communities we exist for.
+      </p>
+
+      <div class="board__grid">
+
+        <!-- Trustee 1 -->
+        <div class="board__card">
+          <img src="images/WhatsApp Image 2026-04-20 at 09.15.31.jpeg" alt="Mrs Folasade Yewande Afolabi" class="board__photo" />
+          <h3 class="board__name">Mrs Folasade Yewande Afolabi</h3>
+          <p class="board__role">Board Chair & Founder</p>
+          <!-- CHANGED: Bio rewritten to be clean and professional -->
+          <p class="board__bio">
+            A Mass Communication graduate of Olabisi Onabanjo University and a Post-Graduate Diploma holder in Education from the National Teachers Institute, Kaduna. She is the CEO of Lloyd Integrated Business Services and the founder of Comfort Precinct Foundation.
+          </p>
+        </div>
+
+        <!-- Trustee 2 -->
+        <div class="board__card">
+          <img src="images/WhatsApp Image 2026-04-19 at 18.39.59.jpeg" alt="Mr Adedayo Lamikanra" class="board__photo" />
+          <h3 class="board__name">Mr Adedayo Lamikanra</h3>
+          <p class="board__role">Vice Chair</p>
+          <!-- CHANGED: Placeholder bio polished -->
+          <p class="board__bio">
+           Mr. Adebayo serves as Vice Chairman of the foundation, bringing a strong commitment to service, dedication and community impact. Alongside his role, he works within the estates and facilities team of a UK college. As a philanthropist, he is passionate about using his platform to support positive change.
+          </p>
+        </div>
+
+        <!-- Trustee 3 -->
+        <div class="board__card">
+          <img src="images/Aunty Kenny.jfif" alt="Miss Kehinde Honorine Agbolo" class="board__photo" />
+          <h3 class="board__name">Miss Kehinde Honorine Agbolo</h3>
+          <p class="board__role">Secretary & Welfare Lead</p>
+          <!-- CHANGED: Bio rewritten cleanly -->
+          <p class="board__bio">
+            A fashion designer of international repute and President of the foundation's Welfare Department. She oversees the general welfare of members and the communities the foundation serves.
+          </p>
+        </div>
+
+        <!-- Trustee 4 -->
+        <div class="board__card">
+          <img src="images/WhatsApp Image 2026-04-19 at 18.30.59.jpeg" alt="Engr Oluwasegunfunmi Martins" class="board__photo" />
+          <h3 class="board__name">Engr Oluwasegunfunmi Martins</h3>
+          <p class="board__role">Treasurer</p>
+          <!-- CHANGED: Placeholder bio polished -->
+          <p class="board__bio">
+            An engineer whose financial oversight and transparency ensure that every resource the foundation receives is managed responsibly and directed towards meaningful impact.
+          </p>
+        </div>
+
+        <!-- Trustee 5 — placeholder, image unchanged -->
+        <div class="board__card">
+          <img src="images/WhatsApp Image 2026-04-19 at 18.46.42.jpeg" alt="Trustee" class="board__photo" />
+          <h3 class="board__name">Miss Olubukola Kosiwa</h3>
+          <p class="board__role">Trustee</p>
+          <p class="board__bio">
+            A dedicated member of the board whose commitment to the foundation's mission helps guide decisions that serve the organisation's long-term purpose.
+          </p>
+        </div>
+
+        <!-- Trustee 6 — placeholder, image unchanged -->
+        <div class="board__card">
+          <img src="images/WhatsApp Image 2026-04-19 at 18.47.47.jpeg" alt="Trustee" class="board__photo" />
+          <h3 class="board__name">Mr Stephen Ayodeji Adelusi</h3>
+          <p class="board__role">Trustee</p>
+          <p class="board__bio">
+            A trusted member of the leadership team who brings a grounded perspective and genuine care for the communities Comfort Precinct Foundation exists to serve.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════
+       SECTION 4: CONSTITUTION
+  ════════════════════════════════ -->
+  <section class="section section--alt" id="constitution" aria-labelledby="constitution-heading">
+    <div class="section__inner">
+
+      <span class="eyebrow">Governance</span>
+      <h2 class="section__heading" id="constitution-heading">
+        Our <em>Constitution</em>
+      </h2>
+      <div class="section__divider"></div>
+
+      <div class="constitution__layout">
+
+        <div class="constitution__sidebar">
+          <span class="constitution__sidebar-label">In this document</span>
+          <ul class="constitution__toc">
+            <li><a href="#const-name">Name & Identity</a></li>
+            <li><a href="#const-mission">Mission & Purpose</a></li>
+            <li><a href="#const-values">Core Values</a></li>
+            <li><a href="#const-membership">Membership</a></li>
+            <li><a href="#const-governance">Governance</a></li>
+            <li><a href="#const-finance">Finance</a></li>
+          </ul>
+       </div>
+         
+        <div class="constitution__content">
+
+          <div class="constitution__article" id="const-name">
+            <h3 class="constitution__article-title">Article 1 — Name & Identity</h3>
+            <p class="constitution__article-text">
+              The organisation shall be known as <strong>Comfort Precinct Foundation</strong>,
+              a non-governmental, non-partisan, and non-profit organisation registered and
+              operating in accordance with applicable Nigerian law. It shall operate under
+              this name and any legally registered abbreviations.
+            </p>
+          </div>
+
+          <div class="constitution__article" id="const-mission">
+            <h3 class="constitution__article-title">Article 2 — Mission & Purpose</h3>
+            <p class="constitution__article-text">
+              The foundation exists to inform, uplift, and support vulnerable individuals
+              and communities through structured, impactful initiatives. Its purpose is to
+              create real opportunities and lasting change by operating with integrity,
+              accountability, enlightenment and measurable outcomes at the core of every action.
+            </p>
+          </div>
+
+          <div class="constitution__article" id="const-values">
+            <h3 class="constitution__article-title">Article 3 — Core Values</h3>
+            <p class="constitution__article-text">
+              The foundation is guided by the following values: <strong>Transparency</strong>
+              in all operations and reporting; <strong>Accountability</strong> to donors,
+              beneficiaries, and the wider community; <strong>Dignity</strong> in every
+              interaction; <strong>Impact</strong> as the primary measure of success; and
+              <strong>Compassion</strong> as the foundation of every decision.
+            </p>
+          </div>
+
+          <div class="constitution__article" id="const-membership">
+            <h3 class="constitution__article-title">Article 4 — Membership</h3>
+            <p class="constitution__article-text">
+              Membership of the foundation is open to individuals who share the
+              organisation's values and mission. Members shall participate in annual
+              activities, contribute to the foundation's goals, and uphold the standards
+              set out in this constitution. Details of membership categories and
+              responsibilities are defined in the full document.
+            </p>
+          </div>
+
+          <div class="constitution__article" id="const-governance">
+            <h3 class="constitution__article-title">Article 5 — Governance</h3>
+            <p class="constitution__article-text">
+              The foundation shall be governed by a Board of Trustees, responsible for
+              strategic oversight, policy direction, and ensuring the organisation fulfils
+              its mission. The board shall meet at minimum twice per year and shall operate
+              in accordance with democratic principles and the best interests of
+              the communities the foundation serves.
+            </p>
+          </div>
+
+          <div class="constitution__article" id="const-finance">
+            <h3 class="constitution__article-title">Article 6 — Finance & Resources</h3>
+            <p class="constitution__article-text">
+              All financial resources of the foundation shall be used solely for the
+              purposes outlined in this constitution. Financial records shall be maintained
+              transparently, reviewed annually, and made available to members and
+              stakeholders upon request. No member of the board shall personally benefit
+              from the foundation's funds.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════
+       SECTION 5: CO-WORKING SPACE
+       CHANGED: Text rewritten to feel humble and honest
+  ════════════════════════════════ -->
+  <section class="section section--dark" id="coworking" aria-labelledby="cowork-heading">
+    <div class="section__inner">
+
+      <span class="eyebrow">Initiative</span>
+      <h2 class="section__heading" id="cowork-heading">
+        Our <em>Co-Working Space</em>
+      </h2>
+      <div class="section__divider"></div>
+
+      <div class="cowork__grid">
+
+        <div>
+          <!-- CHANGED: Rewritten to be humble, honest, community-centred -->
+          <p class="section__body" style="margin-bottom: 1rem;">
+            Our co-working space is a modest, shared environment where members
+            come together to work, connect, and support one another. It is not
+            a formal office, it is simply a space that belongs to the community.
+          </p>
+          <p class="section__body">
+            The heart of it is the people. Members look out for each other,
+            share ideas, and collaborate on projects. Whether you need a quiet
+            place to work or just the company of others who share your values,
+            there is a seat here for you.
+          </p>
+
+          <div class="cowork__features">
+
+            <div class="cowork__feature">
+              <div class="cowork__feature-icon">🪑</div>
+              <div class="cowork__feature-text">
+                <span class="cowork__feature-title">A Shared Working Space</span>
+                <!-- CHANGED: Modest, honest wording -->
+                <span class="cowork__feature-desc">A simple, comfortable place to sit and work alongside others in the community — available to members as needed.</span>
+              </div>
+            </div>
+
+            <div class="cowork__feature">
+              <div class="cowork__feature-icon">🤝</div>
+              <div class="cowork__feature-text">
+                <span class="cowork__feature-title">Community First</span>
+                <!-- CHANGED: Human and warm -->
+                <span class="cowork__feature-desc">Members support each other genuinely — through encouragement, shared resources, and simply showing up for one another.</span>
+              </div>
+            </div>
+
+            <div class="cowork__feature">
+              <div class="cowork__feature-icon">🌱</div>
+              <div class="cowork__feature-text">
+                <span class="cowork__feature-title">A Space to Grow</span>
+                <!-- CHANGED: Grounded and realistic -->
+                <span class="cowork__feature-desc">We believe that when people work together in a supportive environment, small ideas can grow into real impact over time.</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Image placeholders — unchanged -->
+        <div class="cowork__images">
+          <div class="cowork__img-placeholder cowork__img-placeholder--large">
+            <span>🏢</span>
+            <p>Main space photo</p>
+          </div>
+          <div class="cowork__img-placeholder">
+            <span>🖥️</span>
+            <p>Workspace</p>
+          </div>
+          <div class="cowork__img-placeholder">
+            <span>☕</span>
+            <p>Lounge area</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════
+       SECTION 6: PROGRAMME AREAS
+       CHANGED: Replaced with 5 correct programme areas
+       including Helping Hands as a distinct category
+  ════════════════════════════════ -->
+  <section class="section" id="programmes" aria-labelledby="programmes-heading">
+    <div class="section__inner">
+
+      <span class="eyebrow">What We Do</span>
+      <h2 class="section__heading" id="programmes-heading">
+        Our Programme <em>Areas</em>
+      </h2>
+      <div class="section__divider"></div>
+      <p class="section__body" style="margin-bottom: 3rem;">
+        Our work is organised into five programme areas, each addressing
+        a specific and real need. Together they reflect our commitment
+        to serving communities from the inside out.
+      </p>
+
+      <div class="programmes__grid">
+
+        <!-- Programme 1: Welfare -->
+         <div class="programme__card">
+          <img src="images/ChatGPT Image Apr 21, 2026, 07_33_56 PM.png" alt="Welfare" class="programme__photo" />
+          <h3 class="programme__title">Welfare</h3>
+          <p class="programme__text">
+            Providing direct care and essential support to individuals
+            and groups who need it most, with dignity at the centre
+            of every interaction.
+          </p>
+          <ul class="programme__list">
+            <li>Prison outreach</li>
+            <li>Support for the less privileged</li>
+            <li>Visits to motherless homes</li>
+          </ul>
+          <span class="programme__tag">Welfare</span>
+        </div>
+
+        <!-- Programme 2: Empowerment -->
+          <div class="programme__card">
+          <img src="images/empowerment.jpeg" alt="Empowerment" class="programme__photo" />
+          <h3 class="programme__title">Empowerment</h3>
+          <p class="programme__text">
+            Building awareness and creating pathways for individuals
+            and communities to become more self-reliant and informed.
+          </p>
+          <ul class="programme__list">
+            <li>Awareness in schools, churches &amp; public spaces</li>
+            <li>Widow empowerment</li>
+            <li>Orphan support</li>
+          </ul>
+          <span class="programme__tag">Empowerment</span>
+        </div>
+
+        <!-- Programme 3: Education -->
+         <div class="programme__card">
+          <img src="images/education.jpeg" alt="Education" class="programme__photo" />
+          <h3 class="programme__title">Education</h3>
+          <p class="programme__text">
+            Keeping young people in school and giving them the tools
+            and support they need to build a better future for themselves.
+          </p>
+          <ul class="programme__list">
+            <li>Student sponsorship</li>
+            <li>Support for primary and secondary schools</li>
+          </ul>
+          <span class="programme__tag">Education</span>
+        </div>
+
+        <!-- Programme 4: Development -->
+        <div class="programme__card">
+           <img src="images/Development.jpeg" alt="Development" class="programme__photo" />
+          <h3 class="programme__title">Development</h3>
+          <p class="programme__text">
+            Investing in the long-term growth of the communities we
+            serve through practical initiatives and collaborative efforts.
+          </p>
+          <ul class="programme__list">
+            <li>Community development initiatives</li>
+            <li>General outreach and improvement efforts</li>
+          </ul>
+          <span class="programme__tag">Development</span>
+        </div>
+
+        <!-- Programme 5: Helping Hands — highlighted, distinct -->
+        <div class="programme__card programme__card--highlight">
+           <img src="images/helping hands.png" alt="Helping Hands" class="programme__photo" />
+          <h3 class="programme__title">Helping Hands</h3>
+          <!--
+            IMPORTANT: Helping Hands is a separate programme area
+            focused on supporting members of the foundation internally.
+            It is not merged with other areas.
+          -->
+          <p class="programme__text">
+            We believe that a foundation is only as strong as the people
+            within it. Helping Hands exists to ensure that our own members
+            are cared for, practically and personally.
+          </p>
+          <ul class="programme__list">
+            <li>Financial assistance for members in need</li>
+            <li>Support for members' small businesses</li>
+            <li>Standing with members through difficult times</li>
+          </ul>
+          <span class="programme__tag">Internal Support</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════
+       FOOTER
+  ════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer__inner">
+
+      <div class="footer__brand">
+        <img src="images/WhatsApp Image 2026-04-01 at 20.40.00 (1).jpeg" alt="Logo" class="footer__logo" />
+        <span class="footer__name">Comfort Precinct Foundation</span>
+      </div>
+
+      <p class="footer__copy">&copy; 2026 Comfort Precinct Foundation. All rights reserved.</p>
+
+      <ul class="footer__links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+
+    </div>
+  </footer>
+
+
+  <!-- ════════════════════════════════
+       JAVASCRIPT
+  ════════════════════════════════ -->
+  <script>
+
+    // ── NAVIGATION ──
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    document.querySelectorAll('.nav__item--dropdown > a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          link.parentElement.classList.toggle('open');
+        }
+      });
+    });
+
+    document.querySelectorAll('.nav__dropdown a, .nav__item:not(.nav__item--dropdown) > a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        document.querySelectorAll('.nav__item--dropdown').forEach(i => i.classList.remove('open'));
+      });
+    });
+
+  </script>
+
+</body>
+</html>

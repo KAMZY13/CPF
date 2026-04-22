@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects — Comfort Precinct Foundation</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+
+    /* ── RESET ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ── CSS VARIABLES ── */
+    :root {
+      --cream: #ffffff;
+      --charcoal: #1a1a1a;
+      --warm-mid: #1a3a2a;
+      --terracotta: #2e7d32;
+      --terracotta-dark: #1b5e20;
+      --muted: #5a6472;
+      --border: #e5e7eb;
+      --accent-yellow: #d4a017;
+      --bg-soft: #f4f7f4;
+      --green-light: #e8f5e9;
+      --green-border: #c8e6c9;
+      --font-body: 'Inter', sans-serif;
+      --font-heading: 'Playfair Display', serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.85;
+      letter-spacing: 0.01em;
+      background-color: var(--cream);
+      color: var(--charcoal);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    p { font-family: var(--font-body); font-weight: 400; line-height: 1.85; }
+    h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; letter-spacing: -0.01em; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+
+    /* ════════════════════════════════
+       NAVIGATION
+    ════════════════════════════════ */
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 0 4rem;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav__brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav__logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: contain;
+    }
+
+    .nav__brand-name {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--terracotta);
+      letter-spacing: 0.02em;
+    }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      list-style: none;
+    }
+
+    .nav__item { position: relative; }
+
+    .nav__item > a {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      transition: color 0.2s ease;
+      position: relative;
+      padding: 0 1.25rem;
+      height: 68px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav__item > a:hover { color: var(--terracotta); }
+
+    .nav__item > a.active {
+      color: var(--terracotta);
+      font-weight: 600;
+    }
+
+    .nav__item > a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 1.25rem;
+      right: 1.25rem;
+      height: 2px;
+      background-color: var(--terracotta);
+      border-radius: 2px 2px 0 0;
+    }
+
+    .nav__item--dropdown > a::before {
+      content: '▾';
+      font-size: 0.65rem;
+      margin-left: 0.35rem;
+      opacity: 0.5;
+      display: inline-block;
+    }
+
+    .nav__dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 220px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--terracotta);
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      padding: 0.5rem 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(6px);
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+      pointer-events: none;
+    }
+
+    .nav__item--dropdown:hover .nav__dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      pointer-events: all;
+    }
+
+    .nav__dropdown a {
+      display: block;
+      padding: 0.65rem 1.25rem;
+      font-family: var(--font-body);
+      font-size: 0.84rem;
+      font-weight: 400;
+      color: #4b5563;
+      text-decoration: none;
+      transition: background 0.15s ease, color 0.15s ease;
+      border-left: 3px solid transparent;
+    }
+
+    .nav__dropdown a:hover {
+      background: #f4f7f4;
+      color: var(--terracotta);
+      border-left-color: var(--terracotta);
+    }
+
+    .nav__toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+
+    .nav__toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background-color: var(--charcoal);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    @media (max-width: 768px) {
+      .nav { padding: 0 1.5rem; }
+      .nav__toggle { display: flex; }
+      .nav__links {
+        display: none;
+        position: absolute;
+        top: 68px;
+        left: 0;
+        right: 0;
+        background: #ffffff;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        border-bottom: 1px solid var(--border);
+        padding: 0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      }
+      .nav__links.open { display: flex; }
+      .nav__item > a { height: auto; padding: 0.9rem 1.5rem; display: block; border-bottom: 1px solid #f3f4f6; }
+      .nav__item > a.active::after { display: none; }
+      .nav__item--dropdown > a::before { display: none; }
+      .nav__dropdown {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+        background: #f9fafb;
+        padding: 0;
+        pointer-events: all;
+        display: none;
+      }
+      .nav__item--dropdown.open .nav__dropdown { display: block; }
+      .nav__dropdown a { padding: 0.7rem 2rem; font-size: 0.82rem; border-bottom: 1px solid #f0f0f0; border-left: none; }
+    }
+
+
+    /* ════════════════════════════════
+       PAGE HERO
+    ════════════════════════════════ */
+
+    .page-hero {
+      background-color: var(--warm-mid);
+      padding: 7rem 4rem 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(46,125,50,0.3) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .page-hero__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-hero__label {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent-yellow);
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+
+    .page-hero__heading {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: 1.15;
+      color: #ffffff;
+      margin-bottom: 1.5rem;
+      max-width: 640px;
+    }
+
+    .page-hero__heading em {
+      font-style: italic;
+      color: var(--accent-yellow);
+    }
+
+    .page-hero__subtext {
+      font-size: 1.05rem;
+      font-weight: 400;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.75);
+      max-width: 560px;
+    }
+
+    @media (max-width: 768px) {
+      .page-hero { padding: 5rem 1.5rem 4rem; }
+    }
+
+
+    /* ════════════════════════════════
+       SHARED SECTION STYLES
+    ════════════════════════════════ */
+
+    .section { padding: 6rem 4rem; }
+    .section--alt { background-color: var(--bg-soft); }
+
+    .section__inner { max-width: 1100px; margin: 0 auto; }
+
+    .eyebrow {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 0.85rem;
+      display: block;
+    }
+
+    .section__heading {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      line-height: 1.25;
+      color: var(--charcoal);
+      margin-bottom: 1.25rem;
+    }
+
+    .section__heading em {
+      font-style: italic;
+      color: var(--terracotta);
+    }
+
+    .section__divider {
+      width: 48px;
+      height: 3px;
+      background: var(--accent-yellow);
+      border-radius: 2px;
+      margin-bottom: 2.5rem;
+    }
+
+    .section__body {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: #374151;
+      max-width: 680px;
+    }
+
+    @media (max-width: 768px) {
+      .section { padding: 4rem 1.5rem; }
+    }
+
+
+    /* ════════════════════════════════
+       CURRENT PROJECTS — 4 CARDS
+    ════════════════════════════════ */
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.75rem;
+      margin-top: 1rem;
+    }
+
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.11);
+    }
+
+    .project-card__poster-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+    }
+
+    .project-card__poster {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .project-card:hover .project-card__poster { transform: scale(1.04); }
+
+    .project-card__poster-placeholder {
+      width: 100%;
+      height: 100%;
+      background: var(--green-light);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      color: var(--terracotta);
+    }
+
+    .project-card__poster-placeholder span { font-size: 3rem; opacity: 0.6; }
+    .project-card__poster-placeholder p {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+
+    .project-card__badge {
+      position: absolute;
+      top: 0.85rem;
+      right: 0.85rem;
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #1a3a2a;
+      background: rgba(255,255,255,0.92);
+      border: 1.5px solid #bbf7d0;
+      padding: 0.28rem 0.75rem;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+    }
+
+    .project-card__badge--yellow {
+      background: rgba(254,249,195,0.95);
+      border-color: #fde68a;
+    }
+
+    .project-card__caption {
+      padding: 1.4rem 1.5rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      border-left: 3px solid var(--terracotta);
+      flex: 1;
+    }
+
+    .project-card--featured .project-card__caption {
+      border-left-color: var(--accent-yellow);
+    }
+
+    .project-card__title {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1rem;
+      line-height: 1.35;
+      color: var(--charcoal);
+    }
+
+    .project-card__desc {
+      font-family: var(--font-body);
+      font-size: 0.87rem;
+      font-weight: 400;
+      line-height: 1.8;
+      color: #4b5563;
+    }
+
+    @media (max-width: 1024px) {
+      .projects-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    }
+
+    @media (max-width: 560px) {
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+
+
+    /* ════════════════════════════════
+       IMPACT STRIP
+    ════════════════════════════════ */
+
+    .impact-strip {
+      background: var(--warm-mid);
+      padding: 4rem;
+    }
+
+    .impact-strip__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .impact-stat__num {
+      font-family: var(--font-heading);
+      font-size: 2.6rem;
+      font-weight: 600;
+      color: #ffffff;
+      line-height: 1;
+      display: block;
+    }
+
+    .impact-stat__divider {
+      width: 28px;
+      height: 2px;
+      background: var(--accent-yellow);
+      margin: 0.6rem auto;
+      border-radius: 2px;
+    }
+
+    .impact-stat__label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+    }
+
+    @media (max-width: 768px) {
+      .impact-strip { padding: 3rem 1.5rem; }
+      .impact-strip__inner { grid-template-columns: 1fr 1fr; gap: 2rem 1.5rem; }
+    }
+
+
+    /* ════════════════════════════════
+       PREVIOUS PROJECTS — TIMELINE (text-only)
+    ════════════════════════════════ */
+
+    .archive__intro {
+      margin-bottom: 3.5rem;
+    }
+
+    .timeline {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 72px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--green-border), var(--terracotta), var(--green-border));
+      opacity: 0.5;
+      border-radius: 2px;
+    }
+
+    .timeline-entry {
+      display: grid;
+      grid-template-columns: 145px 1fr;
+      gap: 0 2.5rem;
+      padding-bottom: 4rem;
+      position: relative;
+    }
+
+    .timeline-entry:last-child { padding-bottom: 0; }
+
+    .timeline-entry__year-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 0.25rem;
+    }
+
+    .timeline-entry__dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--terracotta);
+      border: 3px solid var(--bg-soft);
+      outline: 2px solid var(--terracotta);
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+      margin-left: 8px;
+    }
+
+    .timeline-entry__year {
+      font-family: var(--font-heading);
+      font-size: 1.7rem;
+      font-weight: 600;
+      color: var(--terracotta);
+      line-height: 1;
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+
+    .timeline-entry__content {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .timeline-entry__text {
+      font-size: 0.97rem;
+      line-height: 1.95;
+      color: #374151;
+      background: #ffffff;
+      border-left: 3px solid var(--green-border);
+      border-radius: 0 8px 8px 0;
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+
+    .timeline-entry__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .timeline-tag {
+      display: inline-block;
+      font-size: 0.67rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      background: var(--green-light);
+      border: 1.5px solid var(--green-border);
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+    }
+
+    .timeline-tag--yellow {
+      color: #92400e;
+      background: #fef9c3;
+      border-color: #fde68a;
+    }
+
+    .timeline-entry + .timeline-entry {
+      border-top: 1px solid var(--green-border);
+      padding-top: 3.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .timeline::before { display: none; }
+      .timeline-entry {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding-bottom: 3rem;
+      }
+      .timeline-entry__year-col {
+        flex-direction: row;
+        align-items: center;
+        gap: 0.75rem;
+        padding-top: 0;
+      }
+      .timeline-entry__dot { margin-left: 0; }
+      .timeline-entry__year { margin-top: 0; font-size: 1.4rem; }
+    }
+
+
+    /* ════════════════════════════════
+       GALLERY SECTION
+    ════════════════════════════════ */
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .gallery-item {
+      display: flex;
+      flex-direction: column;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.1);
+    }
+
+    .gallery-item__img-wrap {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: var(--green-light);
+      position: relative;
+      border-bottom: 1px solid var(--green-border);
+    }
+
+    .gallery-item__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover .gallery-item__img { transform: scale(1.05); }
+
+    .gallery-item__placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      color: var(--terracotta);
+    }
+
+    .gallery-item__placeholder span { font-size: 1.8rem; opacity: 0.35; }
+    .gallery-item__placeholder p {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.35;
+    }
+
+    .gallery-item__caption {
+      padding: 0.8rem 1rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .gallery-item__year {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+    }
+
+    .gallery-item__label {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      line-height: 1.4;
+    }
+
+    @media (max-width: 900px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .gallery-grid { grid-template-columns: 1fr 1fr; gap: 0.65rem; }
+    }
+
+
+    /* ════════════════════════════════
+       FOOTER
+    ════════════════════════════════ */
+
+    .footer {
+      background-color: var(--warm-mid);
+      padding: 2.5rem 4rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer__brand { display: flex; align-items: center; gap: 10px; }
+
+    .footer__logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      object-fit: contain;
+    }
+
+    .footer__name {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .footer__copy {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .footer__links { display: flex; gap: 2rem; list-style: none; }
+
+    .footer__links a {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+      transition: color 0.2s ease;
+    }
+
+    .footer__links a:hover { color: rgba(255,255,255,0.9); }
+
+    @media (max-width: 600px) {
+      .footer { padding: 2rem 1.5rem; }
+      .footer__inner { flex-direction: column; align-items: flex-start; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════
+       NAVIGATION
+  ════════════════════════════════ -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+
+    <a href="index.html" class="nav__brand">
+      <img src="images/WhatsApp Image 2026-04-01 at 20.40.00 (1).jpeg" alt="Logo" class="nav__logo" />
+      <span class="nav__brand-name">Comfort Precinct Foundation</span>
+    </a>
+
+    <button class="nav__toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav__links" id="navLinks">
+
+      <li class="nav__item nav__item--dropdown">
+        <a href="index.html">Home</a>
+        <div class="nav__dropdown">
+          <a href="index.html#about">About (Overview)</a>
+          <a href="index.html#projects">Projects</a>
+          <a href="index.html#donate">Donate / Volunteer</a>
+        </div>
+      </li>
+
+      <li class="nav__item nav__item--dropdown">
+        <a href="about.html">About</a>
+        <div class="nav__dropdown">
+          <a href="about.html#overview">Overview</a>
+          <a href="about.html#history">History</a>
+          <a href="about.html#board">Board of Trustees</a>
+          <a href="about.html#constitution">Constitution</a>
+          <a href="about.html#coworking">Co-Working Space</a>
+          <a href="about.html#programmes">Programme Areas</a>
+          <a href="about.html#gallery">Gallery</a>
+        </div>
+      </li>
+
+      <li class="nav__item nav__item--dropdown">
+        <a href="projects.html" class="active">Projects</a>
+        <div class="nav__dropdown">
+          <a href="projects.html#current">Current Projects</a>
+          <a href="projects.html#previous">Previous Projects</a>
+          <a href="projects.html#gallery">Gallery</a>
+        </div>
+      </li>
+
+      <li class="nav__item">
+        <a href="contact.html">Contact</a>
+      </li>
+
+    </ul>
+  </nav>
+
+
+  <!-- ════════════════════════════════
+       PAGE HERO
+  ════════════════════════════════ -->
+  <header class="page-hero">
+    <div class="page-hero__inner">
+      <span class="page-hero__label">Our Work</span>
+      <h1 class="page-hero__heading">
+        Projects that create<br>
+        <em>real, lasting change</em>
+      </h1>
+      <p class="page-hero__subtext">
+        Every initiative we run is a direct response to a real need.
+        From the prison cell to the classroom, we show up where it matters most.
+      </p>
+    </div>
+  </header>
+
+
+  <!-- ════════════════════════════════
+       IMPACT STRIP
+  ════════════════════════════════ -->
+  <div class="impact-strip" aria-label="Impact statistics">
+    <div class="impact-strip__inner">
+
+      <div class="impact-stat">
+        <span class="impact-stat__num">2018</span>
+        <div class="impact-stat__divider"></div>
+        <span class="impact-stat__label">Year Founded</span>
+      </div>
+
+      <div class="impact-stat">
+        <span class="impact-stat__num">3+</span>
+        <div class="impact-stat__divider"></div>
+        <span class="impact-stat__label">Projects Yearly</span>
+      </div>
+
+      <div class="impact-stat">
+        <span class="impact-stat__num">14k+</span>
+        <div class="impact-stat__divider"></div>
+        <span class="impact-stat__label">Lives Reached</span>
+      </div>
+
+      <div class="impact-stat">
+        <span class="impact-stat__num">100%</span>
+        <div class="impact-stat__divider"></div>
+        <span class="impact-stat__label">Transparent</span>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════
+       SECTION 1: CURRENT PROJECTS
+  ════════════════════════════════ -->
+  <section class="section" id="current" aria-labelledby="current-heading">
+    <div class="section__inner">
+
+      <span class="eyebrow">Active — 2026</span>
+      <h2 class="section__heading" id="current-heading">
+        Our Work <em>Right Now</em>
+      </h2>
+      <div class="section__divider"></div>
+      <p class="section__body" style="margin-bottom: 3rem;">
+        These are the lives we are walking alongside in 2026 — four focused
+        initiatives, each addressing a distinct but urgent human need.
+      </p>
+
+      <div class="projects-grid">
+
+        <!-- Card 1: Prison Outreach -->
+        <div class="project-card">
+          <div class="project-card__poster-wrap">
+            <img src="images/prisoner.jpeg" alt="Prison Outreach Programme" class="project-card__poster" />
+            <span class="project-card__badge">Active · 2026</span>
+          </div>
+          <div class="project-card__caption">
+            <h3 class="project-card__title">Prison Outreach Programme</h3>
+            <p class="project-card__desc">
+              Providing essential items such as toiletries and blankets to inmates,
+              alongside awareness and support sessions to promote dignity and rehabilitation.
+              Because incarceration should never mean abandonment.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 2: Feed the Widows -->
+        <div class="project-card project-card--featured">
+          <div class="project-card__poster-wrap">
+            <img src="images/widows.jpeg" alt="Operation Feed the Widows" class="project-card__poster" />
+            <span class="project-card__badge project-card__badge--yellow">Active · 2026</span>
+          </div>
+          <div class="project-card__caption">
+            <h3 class="project-card__title">Operation Feed the Widows</h3>
+            <p class="project-card__desc">
+              Continuing our commitment to supporting widows through food assistance
+              and empowerment initiatives that promote stability and independence.
+              No widow should be left unseen or unsupported.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 3: Student Sponsorship -->
+        <div class="project-card">
+          <div class="project-card__poster-wrap">
+            <img src="images/students.jpeg" alt="Student Sponsorship Programme" class="project-card__poster" />
+            <span class="project-card__badge">Active · 2026</span>
+          </div>
+          <div class="project-card__caption">
+            <h3 class="project-card__title">Student Sponsorship Programme</h3>
+            <p class="project-card__desc">
+              Supporting underprivileged students in public primary and secondary schools
+              with resources and financial assistance to keep them in school.
+              No child should be denied a future because of where they started.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 4: Women Empowerment Initiative — NEW -->
+        <div class="project-card">
+          <div class="project-card__poster-wrap">
+            <img src="images/ChatGPT Image Apr 22, 2026, 10_26_43 AM.png" alt="Women Empowerment Initiative" class="project-card__poster" />
+            <span class="project-card__badge">Active · 2026</span>
+          </div>
+          <div class="project-card__caption">
+            <h3 class="project-card__title">Women Empowerment Initiative</h3>
+            <p class="project-card__desc">
+              Supporting women with small businesses through direct financial assistance
+              and practical guidance. When a woman is equipped to sustain herself,
+              her family and her community feel the difference.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════
+       SECTION 2: PREVIOUS PROJECTS
+  ════════════════════════════════ -->
+  <section class="section section--alt" id="previous" aria-labelledby="previous-heading">
+    <div class="section__inner">
+
+      <span class="eyebrow">Archive</span>
+      <h2 class="section__heading" id="previous-heading">
+        Previous <em>Projects</em>
+      </h2>
+      <div class="section__divider"></div>
+
+      <p class="section__body archive__intro">
+        Every past project is proof that showing up consistently creates real change.
+        This is a record of our impact over the years — the communities touched,
+        the lives reached, and the work that built the foundation we stand on today.
+      </p>
+
+      <div class="timeline">
+
+        <!-- ══ 2018 ══ -->
+        <div class="timeline-entry">
+          <div class="timeline-entry__year-col">
+            <div class="timeline-entry__dot"></div>
+            <div class="timeline-entry__year">2018</div>
+          </div>
+          <div class="timeline-entry__content">
+            <p class="timeline-entry__text">
+              In October 2018, during the foundation's anniversary, Comfort Precinct Organisation carried out one of its earliest outreach efforts with a visit to a destitute home. The team spent time engaging with residents, providing essential support items, and sharing moments of care and attention. This outreach, though modest, laid the foundation for what would become a consistent commitment to reaching the most vulnerable members of society and marked the beginning of the organization's hands-on humanitarian work.
+            </p>
+            <div class="timeline-entry__tags">
+              <span class="timeline-tag">Welfare</span>
+              <span class="timeline-tag">Community</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ 2019 ══ -->
+        <div class="timeline-entry">
+          <div class="timeline-entry__year-col">
+            <div class="timeline-entry__dot"></div>
+            <div class="timeline-entry__year">2019</div>
+          </div>
+          <div class="timeline-entry__content">
+            <p class="timeline-entry__text">
+              In 2019, the foundation expanded its reach across multiple communities. Early in the year, visits were made to elderly homes where gifts and support items were distributed, offering both material aid and companionship to senior citizens. In June, the organization empowered ten widows in Ota, Ogun State, providing support aimed at improving their living conditions and independence. Later in October, during its anniversary, the foundation visited Mount Olivet Grammar School, New Bodija, Ibadan, where four indigent students were sponsored, reinforcing its commitment to education and youth development.
+            </p>
+            <div class="timeline-entry__tags">
+              <span class="timeline-tag">Welfare</span>
+              <span class="timeline-tag">Empowerment</span>
+              <span class="timeline-tag">Education</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ 2020 ══ -->
+        <div class="timeline-entry">
+          <div class="timeline-entry__year-col">
+            <div class="timeline-entry__dot"></div>
+            <div class="timeline-entry__year">2020</div>
+          </div>
+          <div class="timeline-entry__content">
+            <p class="timeline-entry__text">
+              Despite the challenges of the year, the foundation remained active in 2020. In February, members visited the Ijamido Orphanage in Ota, extending care and support to children through donations and engagement. In June, the organization carried out "Operation Feed the Widows" in Ile-Ife, providing food and relief materials to widows in the community. By October, during the anniversary period, ten women were empowered through targeted support initiatives, continuing the organization's focus on uplifting vulnerable groups.
+            </p>
+            <div class="timeline-entry__tags">
+              <span class="timeline-tag">Welfare</span>
+              <span class="timeline-tag">Empowerment</span>
+              <span class="timeline-tag timeline-tag--yellow">Operation Feed the Widows</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ 2021 ══ -->
+        <div class="timeline-entry">
+          <div class="timeline-entry__year-col">
+            <div class="timeline-entry__dot"></div>
+            <div class="timeline-entry__year">2021</div>
+          </div>
+          <div class="timeline-entry__content">
+            <p class="timeline-entry__text">
+              The year 2021 marked a significant expansion in impact. In February, "Operation Feed the Widows" was held in Itire, Lagos, where 100 widows received food supplies valued at ₦30,000 each, providing substantial relief. In June, the foundation sponsored indigent students at Ayegun Community High School in Ibadan, supporting their educational journey. By October, the organization turned inward as well, empowering widows and less privileged members within the foundation itself, reinforcing its belief in supporting both the community and its own members.
+            </p>
+            <div class="timeline-entry__tags">
+              <span class="timeline-tag timeline-tag--yellow">Operation Feed the Widows</span>
+              <span class="timeline-tag">Education</span>
+              <span class="timeline-tag">Empowerment</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ 2022 ══ -->
+        <div class="timeline-entry">
+          <div class="timeline-entry__year-col">
+            <div class="timeline-entry__dot"></div>
+            <div class="timeline-entry__year">2022</div>
+          </div>
+          <div class="timeline-entry__content">
+            <p class="timeline-entry__text">
+              In 2022, the foundation continued its focus on education and empowerment. In February, five students at Adekile Goodwill Grammar School in Ibadan had their WAEC fees fully sponsored, ensuring they could complete their secondary education without financial barriers. In June, the organization carried out a women empowerment initiative aimed at providing support and encouragement to women in need. Later in October, "Operation Feed the Widows" was once again organized, continuing its consistent effort to provide relief to widows across communities.
+            </p>
+            <div class="timeline-entry__tags">
+              <span class="timeline-tag">Education</span>
+              <span class="timeline-tag">Empowerment</span>
+              <span class="timeline-tag timeline-tag--yellow">Operation Feed the Widows</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ 2023 ══ -->
+        <div class="timeline-entry">
+          <div class="timeline-entry__year-col">
+            <div class="timeline-entry__dot"></div>
+            <div class="timeline-entry__year">2023</div>
+          </div>
+          <div class="timeline-entry__content">
+            <p class="timeline-entry__text">
+              The foundation sustained its outreach efforts in 2023 across different areas. In February, a visit was made to an orphanage, where children received support, care, and essential items. In June, the organization sponsored students at Premier Grammar School in Lafenwa, Abeokuta, helping to ease the financial burden on families. By October, another empowerment program was conducted, continuing the foundation's mission of uplifting individuals and strengthening communities through direct intervention.
+            </p>
+            <div class="timeline-entry__tags">
+              <span class="timeline-tag">Welfare</span>
+              <span class="timeline-tag">Education</span>
+              <span class="timeline-tag">Empowerment</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ 2024 ══ -->
+        <div class="timeline-entry">
+          <div class="timeline-entry__year-col">
+            <div class="timeline-entry__dot"></div>
+            <div class="timeline-entry__year">2024</div>
+          </div>
+          <div class="timeline-entry__content">
+            <p class="timeline-entry__text">
+              In 2024, the scale of support continued to grow. In February, five women were empowered with financial support of ₦100,000 each, helping them strengthen their businesses and livelihoods. In June, "Operation Feed the Widows" was carried out in Ibadan, where 100 widows received food supplies valued at ₦35,000 each. Later in October, the same initiative was extended to Ekiti State, again supporting 100 widows with similar relief packages, demonstrating consistency and expansion in outreach efforts.
+            </p>
+            <div class="timeline-entry__tags">
+              <span class="timeline-tag">Empowerment</span>
+              <span class="timeline-tag timeline-tag--yellow">Operation Feed the Widows</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ 2025 ══ -->
+        <div class="timeline-entry">
+          <div class="timeline-entry__year-col">
+            <div class="timeline-entry__dot"></div>
+            <div class="timeline-entry__year">2025</div>
+          </div>
+          <div class="timeline-entry__content">
+            <p class="timeline-entry__text">
+              The year 2025 reflected both educational support and community impact. In February, 1,000 exercise books were distributed to students at Itolu Grammar School, alongside financial empowerment of a foundation member with ₦100,000. In June, the organization sponsored two students' WAEC fees at the same school, ensuring continuity in their education. The foundation also visited a special needs children's home in Ilaro, providing gifts and financial assistance. In October, a memorial lecture was held in honor of Comrade Debo Akinwunmi at his alma mater, where exercise books were distributed to students, blending remembrance with meaningful community support.
+            </p>
+            <div class="timeline-entry__tags">
+              <span class="timeline-tag">Education</span>
+              <span class="timeline-tag">Welfare</span>
+              <span class="timeline-tag">Empowerment</span>
+              <span class="timeline-tag">Remembrance</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end .timeline -->
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════
+       SECTION 3: GALLERY
+  ════════════════════════════════ -->
+  <section class="section" id="gallery" aria-labelledby="gallery-heading">
+    <div class="section__inner">
+
+      <span class="eyebrow">In Pictures</span>
+      <h2 class="section__heading" id="gallery-heading">
+        Moments of <em>Impact</em>
+      </h2>
+      <div class="section__divider"></div>
+      <p class="section__body" style="margin-bottom: 3rem;">
+        A glimpse into the work — the people, the places, and the moments that remind
+        us why we keep showing up.
+      </p>
+
+      <!-- 4 columns × 3 rows = 12 slots -->
+      <div class="gallery-grid">
+
+        <!-- Row 1 -->
+        <div class="gallery-item">
+          <div class="gallery-item__img-wrap">
+          <img src="images/mount olivet.jpeg" alt="Visit to Mount Olivet Grammar School for sponsorship" class="gallery-item__img" />
+            <div class="gallery-item__placeholder"></div>
+          </div>
+          <div class="gallery-item__caption">
+            <span class="gallery-item__year">2019</span>
+            <span class="gallery-item__label">Visit to Mount Olivet Grammar School for sponsorship</span>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-item__img-wrap">
+            <img src="images/c.jpeg" alt="Visit to the Ijamido Children Home" class="gallery-item__img" /> 
+            <div class="gallery-item__placeholder"></div>
+          </div>
+          <div class="gallery-item__caption">
+            <span class="gallery-item__year">2020</span>
+            <span class="gallery-item__label">Visit to the Ijamido Children Home</span>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-item__img-wrap">
+           <img src="images/h.jpeg" alt="Financial empowerment beneficiary for business" class="gallery-item__img" /> 
+            <div class="gallery-item__placeholder"></div>
+          </div>
+          <div class="gallery-item__caption">
+            <span class="gallery-item__year">2021</span>
+            <span class="gallery-item__label"> Financial empowerment beneficiary for business</span>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-item__img-wrap">
+             <img src="images/WhatsApp Image 2026-04-22 at 15.31.37.jpeg" alt="Sponsorship Program at Adekile Grammar School" class="gallery-item__img" />
+            <div class="gallery-item__placeholder"></div>
+          </div>
+          <div class="gallery-item__caption">
+            <span class="gallery-item__year">2022</span>
+            <span class="gallery-item__label">Sponsorship Program at Adekile Grammar School</span>
+          </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="gallery-item">
+          <div class="gallery-item__img-wrap">
+           <img src="images/WhatsApp Image 2026-03-30 at 10.33.55.jpeg" alt="Sponsorship Program at Premier Grammar School Lafenwa Abeokuta" class="gallery-item__img" /> 
+            <div class="gallery-item__placeholder"></div>
+          </div>
+          <div class="gallery-item__caption">
+            <span class="gallery-item__year">2023</span>
+            <span class="gallery-item__label">Sponsorship Program at Premier Grammar School Lafenwa Abeokuta</span>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-item__img-wrap">
+            <img src="images/e.jpeg" alt="Medical Outreach in Ibadan" class="gallery-item__img" /> 
+            <div class="gallery-item__placeholder"></div>
+          </div>
+          <div class="gallery-item__caption">
+            <span class="gallery-item__year">2024</span>
+            <span class="gallery-item__label">Medical Outreach in Ibadan</span>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-item__img-wrap">
+            <img src="images/i.jpeg" alt="Operation Feed the Widows in Ekiti State" class="gallery-item__img" /> 
+            <div class="gallery-item__placeholder"></div>
+          </div>
+          <div class="gallery-item__caption">
+            <span class="gallery-item__year">2024</span>
+            <span class="gallery-item__label">Operation Feed the Widows in Ekiti State</span>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-item__img-wrap">
+            <img src="images/WhatsApp Image 2026-04-01 at 20.39.59 (1).jpeg" alt="Special needs children home" class="gallery-item__img" /> 
+            <div class="gallery-item__placeholder"></div>
+          </div>
+          <div class="gallery-item__caption">
+            <span class="gallery-item__year">2025</span>
+            <span class="gallery-item__label">Special needs children home</span>
+          </div>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="gallery-item">
+          <div class="gallery-item__img-wrap">
+            <img src="images/WhatsApp Image 2026-04-01 at 20.39.55 (2).jpeg" alt="Itolu grammar school ilaro" class="gallery-item__img" />
+            <div class="gallery-item__placeholder"></div>
+          </div>
+          <div class="gallery-item__caption">
+            <span class="gallery-item__year">2025</span>
+            <span class="gallery-item__label">Itolu Grammar School Ilaro</span>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-item__img-wrap">
+           <img src="images/b.jpeg" alt="Ayegun Community Secondary School" class="gallery-item__img" /> 
+            <div class="gallery-item__placeholder"></div>
+          </div>
+          <div class="gallery-item__caption">
+            <span class="gallery-item__year">2021</span>
+            <span class="gallery-item__label">Ayegun Community Secondary School</span>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-item__img-wrap">
+          <img src="images/WhatsApp Image 2026-03-30 at 10.52.52.jpeg" alt="Operation Feed the Widows, Itire Lagos" class="gallery-item__img" /> -->
+            <div class="gallery-item__placeholder"></div>
+          </div>
+          <div class="gallery-item__caption">
+            <span class="gallery-item__year">2021</span>
+            <span class="gallery-item__label">Operation Feed the Widows, Itire Lagos</span>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <div class="gallery-item__img-wrap">
+            <img src="images/f.jpeg" alt="Provision of books and stationaries" class="gallery-item__img" /> -->
+            <div class="gallery-item__placeholder"></div>
+          </div>
+          <div class="gallery-item__caption">
+            <span class="gallery-item__year">2023</span>
+            <span class="gallery-item__label">Provision of books and stationaries</span>
+          </div>
+        </div>
+
+      </div><!-- end .gallery-grid -->
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════
+       FOOTER
+  ════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <img src="images/WhatsApp Image 2026-04-01 at 20.40.00 (1).jpeg" alt="Logo" class="footer__logo" />
+        <span class="footer__name">Comfort Precinct Foundation</span>
+      </div>
+      <p class="footer__copy">&copy; 2026 Comfort Precinct Foundation. All rights reserved.</p>
+      <ul class="footer__links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+
+
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    document.querySelectorAll('.nav__item--dropdown > a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          link.parentElement.classList.toggle('open');
+        }
+      });
+    });
+
+    document.querySelectorAll('.nav__dropdown a, .nav__item:not(.nav__item--dropdown) > a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        document.querySelectorAll('.nav__item--dropdown').forEach(i => i.classList.remove('open'));
+      });
+    });
+  </script>
+
+</body>
+</html>
