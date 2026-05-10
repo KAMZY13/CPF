@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foundation Update — Comfort Precinct Foundation</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    :root{
+      --cream:#ffffff;
+      --charcoal:#1a1a1a;
+      --green:#1a3a2a;
+      --gold:#d4a017;
+      --muted:#5a6472;
+      --border:#e5e7eb;
+
+      --font-body:'Inter', sans-serif;
+      --font-heading:'Playfair Display', serif;
+    }
+
+    body{
+      font-family:var(--font-body);
+      background:var(--cream);
+      color:var(--charcoal);
+      line-height:1.8;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    img,
+    video{
+      display:block;
+      max-width:100%;
+    }
+
+    .page{
+      min-height:100vh;
+    }
+
+    /* HERO */
+
+    .hero{
+      background:var(--green);
+      padding:6rem 1.5rem 5rem;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero::before{
+      content:'';
+      position:absolute;
+      top:-120px;
+      right:-120px;
+      width:400px;
+      height:400px;
+      border-radius:50%;
+      background:rgba(255,255,255,0.04);
+    }
+
+    .hero__inner{
+      max-width:900px;
+      margin:0 auto;
+      position:relative;
+      z-index:2;
+    }
+
+    .hero__label{
+      display:inline-block;
+      font-size:0.72rem;
+      font-weight:600;
+      letter-spacing:0.18em;
+      text-transform:uppercase;
+      color:var(--gold);
+      margin-bottom:1rem;
+    }
+
+    .hero__title{
+      font-family:var(--font-heading);
+      font-size:clamp(2.2rem,5vw,4rem);
+      line-height:1.15;
+      color:#fff;
+      margin-bottom:1.25rem;
+    }
+
+    .hero__text{
+      max-width:650px;
+      color:rgba(255,255,255,0.75);
+      font-size:1rem;
+    }
+
+    .hero__date{
+      margin-top:1.5rem;
+      color:rgba(255,255,255,0.5);
+      font-size:0.88rem;
+    }
+
+    /* VIDEO SECTION */
+
+    .video-section{
+      padding:5rem 1.5rem;
+    }
+
+    .video-section__inner{
+      max-width:1000px;
+      margin:0 auto;
+    }
+
+    .video-wrapper{
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid var(--border);
+      box-shadow:0 18px 40px rgba(0,0,0,0.08);
+      background:#000;
+    }
+
+    video{
+      width:100%;
+      aspect-ratio:16/9;
+      object-fit:cover;
+    }
+
+    /* REFLECTION */
+
+    .reflection{
+      padding-top:3rem;
+      max-width:760px;
+      margin:0 auto;
+      text-align:center;
+    }
+
+    .reflection h2{
+      font-family:var(--font-heading);
+      font-size:2rem;
+      margin-bottom:1rem;
+      color:var(--green);
+    }
+
+    .reflection p{
+      color:#4b5563;
+      font-size:1rem;
+      line-height:1.9;
+    }
+
+    /* FOOTER */
+
+    .footer{
+      margin-top:5rem;
+      background:var(--green);
+      padding:2rem 1.5rem;
+    }
+
+    .footer__inner{
+      max-width:1000px;
+      margin:0 auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:1rem;
+      flex-wrap:wrap;
+    }
+
+    .footer p{
+      color:rgba(255,255,255,0.6);
+      font-size:0.85rem;
+    }
+
+    .footer a{
+      color:rgba(255,255,255,0.85);
+      text-decoration:none;
+      font-size:0.85rem;
+    }
+
+    .footer a:hover{
+      color:#fff;
+    }
+
+    @media(max-width:768px){
+
+      .hero{
+        padding:5rem 1.25rem 4rem;
+      }
+
+      .video-section{
+        padding:4rem 1.25rem;
+      }
+
+      .reflection{
+        text-align:left;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="page">
+
+    <!-- HERO -->
+    <section class="hero">
+
+      <div class="hero__inner">
+
+        <span class="hero__label">Foundation Update</span>
+
+        <h1 class="hero__title">
+          On the news!
+        </h1>
+
+        <p class="hero__text">
+          A brief visual reflection on the Foundation’s recent humanitarian outreach efforts,
+          capturing moments of compassion, support, and meaningful community engagement on the news.
+        </p>
+
+      </div>
+
+    </section>
+
+    <!-- VIDEO -->
+    <section class="video-section">
+
+      <div class="video-section__inner">
+
+        <div class="video-wrapper">
+
+          <video controls>
+            <source src="videos/WhatsApp Video 2026-04-22 at 17.41.01.mp4" type="video/mp4">
+          </video>
+
+        </div>
+
+        <!-- REFLECTION -->
+        <div class="reflection">
+
+          <h2>Moments That Matter</h2>
+
+          <p>
+            Every outreach reminds us that meaningful change often begins with simple acts of presence,
+            compassion, and support. Through every visit, conversation, and shared moment,
+            the Foundation remains committed to restoring dignity, strengthening communities,
+            and reaching people with humanity at the center of every effort.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+      <div class="footer__inner">
+
+        <p>
+          © 2026 Comfort Precinct Foundation. All rights reserved.
+        </p>
+
+        <a href="index.html">
+          Return to Homepage
+        </a>
+
+      </div>
+
+    </footer>
+
+  </div>
+
+</body>
+</html>

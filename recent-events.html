@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beyond the Prison Walls — Comfort Precinct Foundation</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
+
+  <style>
+
+    /* ── RESET ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ── CSS VARIABLES — matches site palette exactly ── */
+    :root {
+      --cream:           #ffffff;
+      --charcoal:        #1a1a1a;
+      --warm-mid:        #1a3a2a;
+      --green:           #2e7d32;
+      --green-dark:      #1b5e20;
+      --green-light:     #e8f5e9;
+      --green-border:    #c8e6c9;
+      --muted:           #5a6472;
+      --border:          #e5e7eb;
+      --yellow:          #d4a017;
+      --yellow-light:    #fef9c3;
+      --yellow-border:   #fde68a;
+      --bg-soft:         #f4f7f4;
+      --font-body:       'Inter', sans-serif;
+      --font-heading:    'Playfair Display', serif;
+    }
+
+    /* ── BASE ── */
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.85;
+      letter-spacing: 0.01em;
+      background-color: var(--cream);
+      color: var(--charcoal);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    p   { font-family: var(--font-body); font-weight: 400; line-height: 1.9; }
+    h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; letter-spacing: -0.01em; }
+    a   { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+
+    /* ════════════════════════════════
+       BACK LINK BAR
+       Sits above the hero — gives users
+       a clear way back to the homepage.
+       Not a navbar; just a quiet signpost.
+    ════════════════════════════════ */
+
+    .back-bar {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 0 4rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+    }
+
+    .back-bar__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s ease;
+    }
+
+    .back-bar__link:hover { color: var(--green); }
+
+    .back-bar__link::before {
+      content: '←';
+      font-size: 0.9rem;
+      transition: transform 0.2s ease;
+    }
+
+    .back-bar__link:hover::before {
+      transform: translateX(-3px);
+    }
+
+    @media (max-width: 768px) {
+      .back-bar { padding: 0 1.5rem; }
+    }
+
+
+    /* ════════════════════════════════
+       HERO SECTION
+       Full-width editorial banner.
+       Dark green bg as placeholder — replace with
+       a real image by uncommenting the img block.
+    ════════════════════════════════ */
+
+    .hero {
+      position: relative;
+      background-color: var(--warm-mid);
+      overflow: hidden;
+      min-height: 540px;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    /*
+      HERO IMAGE:
+      To add a real photo, add this inside .hero before .hero__overlay:
+      <img src="images/prison-outreach-hero.jpg"
+           alt="Prison Outreach Programme"
+           class="hero__img" />
+
+      And the CSS below will handle it:
+    */
+    .hero__img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    /* Gradient overlay — ensures text readability over any image */
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(10, 22, 16, 0.92) 0%,
+        rgba(10, 22, 16, 0.65) 45%,
+        rgba(10, 22, 16, 0.2) 100%
+      );
+      pointer-events: none;
+    }
+
+    /* Subtle textured feel for placeholder state */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 25% 60%, rgba(46,125,50,0.25) 0%, transparent 55%),
+        radial-gradient(circle at 75% 30%, rgba(212,160,23,0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      max-width: 860px;
+      padding: 5rem 4rem 5rem;
+    }
+
+    /* Category tag above headline */
+    .hero__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero__tag::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--yellow);
+      border-radius: 2px;
+    }
+
+    .hero__headline {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: 1.1;
+      color: #ffffff;
+      margin-bottom: 1.25rem;
+      max-width: 700px;
+    }
+
+    .hero__headline em {
+      font-style: italic;
+      color: var(--yellow);
+    }
+
+    .hero__subtext {
+      font-family: var(--font-body);
+      font-size: 1.08rem;
+      font-weight: 400;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.75);
+      max-width: 580px;
+      margin-bottom: 2rem;
+    }
+
+    /* Date + read time meta row */
+    .hero__meta {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .hero__meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .hero__meta-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+    }
+
+    @media (max-width: 768px) {
+      .hero { min-height: 420px; }
+      .hero__content { padding: 3.5rem 1.5rem 3.5rem; }
+      .hero__headline { font-size: clamp(2rem, 6vw, 2.8rem); }
+    }
+
+    @media (max-width: 480px) {
+      .hero { min-height: 360px; }
+      .hero__content { padding: 3rem 1.25rem 3rem; }
+    }
+
+
+    /* ════════════════════════════════
+       PAGE LAYOUT — article container
+    ════════════════════════════════ */
+
+    .article {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 5rem 4rem 7rem;
+    }
+
+    @media (max-width: 900px) {
+      .article { padding: 4rem 2.5rem 6rem; }
+    }
+
+    @media (max-width: 600px) {
+      .article { padding: 3.5rem 1.5rem 5rem; }
+    }
+
+
+    /* ════════════════════════════════
+       INTRO BLOCK
+       First paragraph — slightly larger,
+       acts as a gentle lead-in to the feature.
+    ════════════════════════════════ */
+
+    .article__intro {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: clamp(1.05rem, 2vw, 1.22rem);
+      line-height: 1.85;
+      color: #374151;
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+
+    /* ════════════════════════════════
+       BODY CONTENT — running text
+    ════════════════════════════════ */
+
+    .article__body {
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    .article__body p {
+      font-size: 1.02rem;
+      line-height: 1.95;
+      color: #374151;
+    }
+
+    /* Section subheadings within the article body */
+    .article__subheading {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.35rem;
+      color: var(--charcoal);
+      margin-top: 1rem;
+      margin-bottom: -0.5rem;
+      line-height: 1.3;
+    }
+
+    /* Inline emphasis */
+    .article__body strong {
+      font-weight: 600;
+      color: var(--charcoal);
+    }
+
+
+    /* ════════════════════════════════
+       IMAGE BLOCKS — documentary style
+       2–3 images placed inline with content.
+       Each image is full-width within the
+       article column, captioned below.
+    ════════════════════════════════ */
+
+    .article__image-block {
+      margin: 1rem 0;
+    }
+
+    /* Image container — ratio-based for consistency */
+    .article__image-wrap {
+      width: 100%;
+      height: 0;
+      padding-bottom: 62%;
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+    }
+
+    .article__image-wrap img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    /* Placeholder shown when no image is available */
+    .article__image-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      color: #9ca3af;
+    }
+
+    .article__image-placeholder span { font-size: 2.4rem; opacity: 0.4; }
+
+    .article__image-placeholder p {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+
+    /* Caption below each image */
+    .article__image-caption {
+      margin-top: 0.75rem;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--muted);
+      font-style: italic;
+      padding-left: 1rem;
+      border-left: 2px solid var(--green-border);
+    }
+
+
+    /* ════════════════════════════════
+       QUOTE BLOCK
+       One highlighted reflective quote,
+       centred and typographically distinct.
+    ════════════════════════════════ */
+
+    .article__quote {
+      margin: 1rem 0;
+      padding: 3rem 3.5rem;
+      background: var(--bg-soft);
+      border-radius: 10px;
+      border-left: 4px solid var(--yellow);
+      position: relative;
+    }
+
+    /* Decorative opening quote mark */
+    .article__quote::before {
+      content: '\201C';
+      font-family: var(--font-heading);
+      font-size: 5rem;
+      line-height: 1;
+      color: var(--yellow);
+      opacity: 0.25;
+      position: absolute;
+      top: 1rem;
+      left: 2.5rem;
+      pointer-events: none;
+    }
+
+    .article__quote-text {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: clamp(1.1rem, 2vw, 1.3rem);
+      line-height: 1.75;
+      color: var(--charcoal);
+      position: relative;
+      z-index: 1;
+      margin-bottom: 1.25rem;
+    }
+
+    .article__quote-attr {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .article__quote-attr::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--green);
+      border-radius: 2px;
+    }
+
+    @media (max-width: 600px) {
+      .article__quote { padding: 2.25rem 2rem; }
+      .article__quote::before { font-size: 3.5rem; left: 1.5rem; }
+    }
+
+
+    /* ════════════════════════════════
+       STAT STRIP
+       3 quiet impact numbers — sits
+       between body sections.
+    ════════════════════════════════ */
+
+    .stat-strip {
+      background: var(--warm-mid);
+      border-radius: 10px;
+      padding: 2.5rem 3rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin: 1rem 0;
+      text-align: center;
+    }
+
+    .stat-strip__item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    /* Dividing lines between stats */
+    .stat-strip__item:not(:last-child) {
+      border-right: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .stat-strip__num {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-weight: 600;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .stat-strip__divider {
+      width: 24px;
+      height: 2px;
+      background: var(--yellow);
+      border-radius: 2px;
+      margin: 0.4rem auto;
+    }
+
+    .stat-strip__label {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.4;
+    }
+
+    @media (max-width: 560px) {
+      .stat-strip { grid-template-columns: 1fr; padding: 2rem 1.75rem; }
+      .stat-strip__item:not(:last-child) { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1.25rem; }
+    }
+
+
+    /* ════════════════════════════════
+       CLOSING REFLECTION BLOCK
+       A warm, personal closing note
+       from the Foundation.
+    ════════════════════════════════ */
+
+    .closing-block {
+      margin-top: 3rem;
+      padding-top: 3rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .closing-block__eyebrow {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .closing-block__heading {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.4rem;
+      color: var(--charcoal);
+      margin-bottom: 1.25rem;
+      line-height: 1.3;
+    }
+
+    .closing-block__text {
+      font-size: 1rem;
+      line-height: 1.95;
+      color: #374151;
+      margin-bottom: 1rem;
+    }
+
+    .closing-block__sign {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-top: 1.75rem;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .closing-block__sign::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 2px;
+      background: var(--yellow);
+      border-radius: 2px;
+    }
+
+
+    /* ════════════════════════════════
+       BACK / SHARE STRIP
+       Clean bottom navigation back
+       to the main site.
+    ════════════════════════════════ */
+
+    .page-nav {
+      background: var(--bg-soft);
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 4rem;
+    }
+
+    .page-nav__inner {
+      max-width: 780px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .page-nav__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--green);
+      border: 1.5px solid var(--green-border);
+      background: var(--green-light);
+      padding: 0.7rem 1.5rem;
+      border-radius: 4px;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .page-nav__back::before { content: '←'; }
+    .page-nav__back:hover { background: #d4edda; border-color: var(--green); }
+
+    .page-nav__note {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    @media (max-width: 600px) {
+      .page-nav { padding: 2rem 1.5rem; }
+      .page-nav__inner { flex-direction: column; align-items: flex-start; }
+    }
+
+
+    /* ════════════════════════════════
+       FOOTER — matches site footer exactly
+    ════════════════════════════════ */
+
+    .footer {
+      background-color: var(--warm-mid);
+      padding: 2.5rem 4rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer__brand { display: flex; align-items: center; gap: 10px; }
+    .footer__logo { width: 34px; height: 34px; border-radius: 50%; object-fit: contain; }
+    .footer__name { font-weight: 600; font-size: 0.88rem; color: rgba(255,255,255,0.85); }
+    .footer__copy { font-size: 0.78rem; color: rgba(255,255,255,0.4); }
+
+    .footer__links { display: flex; gap: 2rem; list-style: none; }
+    .footer__links a { font-size: 0.8rem; color: rgba(255,255,255,0.5); transition: color 0.2s ease; }
+    .footer__links a:hover { color: rgba(255,255,255,0.9); }
+
+    @media (max-width: 600px) {
+      .footer { padding: 2rem 1.5rem; }
+      .footer__inner { flex-direction: column; align-items: flex-start; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════
+       BACK LINK BAR
+       Not a navbar — quiet signpost back to home.
+  ════════════════════════════════ -->
+  <div class="back-bar">
+    <a href="index.html" class="back-bar__link">Back to Home</a>
+  </div>
+
+
+  <!-- ════════════════════════════════
+       HERO
+  ════════════════════════════════ -->
+  <header class="hero">
+
+    <!--
+      HERO IMAGE:
+      Add a real outreach photo by inserting this before .hero__overlay:
+      <img src="images/prison-outreach-april-2026.jpg"
+           alt="CPF Prison Outreach Programme, April 2026"
+           class="hero__img" />
+    -->
+    <div class="hero__overlay"></div>
+
+    <div class="hero__content">
+
+      <span class="hero__tag">Foundation Events · Recent Outreach</span>
+
+      <h1 class="hero__headline">
+        Beyond the<br>
+        <em>Prison Walls</em>
+      </h1>
+
+      <p class="hero__subtext">
+        A reflection on dignity, humanity, and the quiet work of
+        reaching those society often forgets, from the Foundation's
+        Prison Outreach Programme, April 24, 2026.
+      </p>
+
+      <div class="hero__meta">
+        <span class="hero__meta-item">April 24, 2026</span>
+        <span class="hero__meta-dot"></span>
+        <span class="hero__meta-item">Comfort Precinct Foundation</span>
+        <span class="hero__meta-dot"></span>
+        <span class="hero__meta-item">Prison Outreach Programme</span>
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- ════════════════════════════════
+       ARTICLE BODY
+  ════════════════════════════════ -->
+  <main class="article">
+
+    <!-- ── Opening paragraph — italic lead ── -->
+    <p class="article__intro">
+      There are places society tends to look away from. Places we acknowledge exist
+      but prefer not to think about too closely. On April 24, 2026, Comfort Precinct
+      Foundation walked toward Kirikiri Prison on Apapa Road, Lagos and what we found inside
+      challenged many of the assumptions we had carried with us through the gate.
+    </p>
+
+
+    <!-- ── Body content ── -->
+    <div class="article__body">
+
+      <h2 class="article__subheading">Why We Went</h2>
+
+      <p>
+        The Foundation's Prison Outreach Programme did not begin with a strategy
+        document or a formal proposal. It began with a simple conviction: that
+        incarcerated individuals are still human beings, and that no one should
+        feel entirely forgotten simply because they are behind a wall.
+      </p>
+
+      <p>
+        Prisons sit in a complicated place in the public imagination. They are
+        spoken of as necessary, sometimes as deserved, rarely as places deserving
+        of compassion. We wanted to challenge that, not politically, not loudly,
+        but practically. By showing up. By bringing things. By sitting with people
+        and looking them in the eye.
+      </p>
+
+
+      <!-- Image 1 -->
+      <div class="article__image-block">
+        <div class="article__image-wrap">
+          <!--
+            Replace placeholder with real photo:
+           
+          -->
+          <div class="article__image-placeholder">
+             <img src="images/WhatsApp Image 2026-04-24 at 15.55.08.jpeg"
+                 alt="Foundation members arriving at the facility" />
+          </div>
+        </div>
+        <p class="article__image-caption">
+          Foundation members arriving with support materials and care items for the
+          outreach visit at Kirikiri Prison, April 24, 2026.
+        </p>
+      </div>
+
+
+      <h2 class="article__subheading">What We Brought</h2>
+
+      <p>
+        The team arrived with basic necessities (toiletries, personal hygiene items,
+        blankets, and small care packages) assembled with thought and care. These are
+        things most of us use daily without a second thought. Inside, they become
+        something more than objects. They become gestures. Proof that somewhere,
+        someone remembered.
+      </p>
+
+      <p>
+        Beyond the physical items, we came with time. With conversation. With a
+        willingness to listen without judgment. Awareness sessions were held on
+        topics ranging from emotional resilience to rehabilitation...practical,
+        grounded discussions that tried to meet people where they actually were,
+        not where we imagined them to be.
+      </p>
+
+
+      <!-- Quote block -->
+      <div class="article__quote">
+        <p class="article__quote-text">
+          Every person inside those walls was once a child with a name and a family.
+          Somewhere along the way, something went wrong. Our role is not to erase
+          what happened, it is to remind them that they are still capable of
+          something better. That there is still a future worth working toward.
+        </p>
+        <span class="article__quote-attr">Comfort Precinct Foundation — Outreach Reflection, April 2026</span>
+      </div>
+
+
+      <h2 class="article__subheading">What We Didn't Expect</h2>
+
+      <p>
+        If we are honest, some of us arrived with preconceived ideas. A prison,
+        in the popular imagination, is a place of punishment; stark, grey,
+        devoid of any sense of forward movement. What we encountered was more
+        complex than that picture, and more human.
+      </p>
+
+      <p>
+        We observed spaces that had been set aside for education. Rooms where
+        vocational training was being offered. A modest recreational area where
+        people could find some daily relief. Structures, however imperfect
+        that seemed to reach toward rehabilitation rather than simply restraint.
+      </p>
+
+      <p>
+        This is not to suggest that incarceration is easy, or that the environment
+        we witnessed was without hardship. It clearly was not. But it reminded
+        us that the story of any correctional facility is never a single story.
+        There are people inside who want to change. There are systems, however
+        underfunded or underappreciated, attempting to support that change.
+        And there are those on the inside (inmates and staff alike) navigating
+        an extremely difficult human situation with more dignity than the outside
+        world often gives them credit for.
+      </p>
+
+
+      <!-- Stat strip -->
+      <div class="stat-strip">
+        <div class="stat-strip__item">
+          <span class="stat-strip__num">April 24</span>
+          <div class="stat-strip__divider"></div>
+          <span class="stat-strip__label">Date of Visit<br>2026</span>
+        </div>
+        <div class="stat-strip__item">
+          <span class="stat-strip__num">Care</span>
+          <div class="stat-strip__divider"></div>
+          <span class="stat-strip__label">Packages &amp;<br>Support Materials</span>
+        </div>
+        <div class="stat-strip__item">
+          <span class="stat-strip__num">100%</span>
+          <div class="stat-strip__divider"></div>
+          <span class="stat-strip__label">Commitment to<br>Human Dignity</span>
+        </div>
+      </div>
+
+
+      <!-- Image 2 -->
+      <div class="article__image-block">
+        <div class="article__image-wrap">
+          <!--
+            Replace placeholder with real photo:
+            
+          -->
+          <div class="article__image-placeholder">
+            <img src="images/WhatsApp Image 2026-04-24 at 15.55.05.jpeg"
+                 alt="Care items being distributed during the outreach visit" />
+          </div>
+        </div>
+        <p class="article__image-caption">
+          Care items and support materials being distributed to inmates during
+          the Foundation's outreach visit.
+        </p>
+      </div>
+
+
+      <h2 class="article__subheading">On Dignity and Rehabilitation</h2>
+
+      <p>
+        The word rehabilitation is used often in discussions about criminal justice,
+        sometimes as a genuine aspiration, sometimes as a political talking point,
+        and sometimes as an afterthought. On the ground, in rooms where it actually
+        needs to happen, it looks much quieter. It looks like a conversation about
+        where a person wants to be in five years. It looks like someone receiving a
+        basic hygiene item and feeling, for a moment, that their comfort matters to
+        someone outside.
+      </p>
+
+      <p>
+        Dignity is not a grand gesture. It is consistent, repeated small ones.
+        It is showing up when you do not have to. It is looking at someone in a
+        context the world has judged harshly and choosing to see the person
+        rather than the sentence. That is what the Foundation tried to bring
+        on April 23 and what we hope to bring every time we return.
+      </p>
+
+
+      <!-- Closing reflection -->
+      <div class="closing-block">
+
+        <span class="closing-block__eyebrow">A Final Reflection</span>
+        <h2 class="closing-block__heading">We Will Go Back</h2>
+
+        <p class="closing-block__text">
+          We left the facility that afternoon carrying something we had not arrived with:
+          a clearer sense of why this work matters. Not because it is dramatic or
+          headline-worthy, but precisely because it is not. Because the people we sat
+          with are easy to forget, and the fact that they are easy to forget is exactly
+          the problem.
+        </p>
+
+        <p class="closing-block__text">
+          The Prison Outreach Programme is not a solution to the challenges of
+          incarceration. We do not pretend that it is. What it is, is a signal.
+          A signal to inmates that they have not been entirely abandoned.
+          A signal to ourselves that our mission does not stop at the comfortable
+          edges of community. And a signal, we hope, to anyone reading this,
+          that compassion is not about waiting for people to deserve it.
+          It is about offering it anyway.
+        </p>
+
+        <p class="closing-block__text">
+          We will go back. And we will keep going back.
+        </p>
+
+        <span class="closing-block__sign">Comfort Precinct Foundation · April 2026</span>
+
+      </div>
+
+    </div>
+    <!-- end .article__body -->
+
+  </main>
+
+
+  <!-- ════════════════════════════════
+       BOTTOM PAGE NAV
+  ════════════════════════════════ -->
+  <div class="page-nav">
+    <div class="page-nav__inner">
+      <a href="index.html" class="page-nav__back">Back to Home</a>
+      <span class="page-nav__note">
+        Comfort Precinct Foundation · Prison Outreach Programme at Kirikiri Prison, April 2026
+      </span>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════
+       FOOTER
+  ════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer__inner">
+
+      <div class="footer__brand">
+        <img src="images/WhatsApp Image 2026-04-01 at 20.40.00 (1).jpeg"
+             alt="Comfort Precinct Foundation logo"
+             class="footer__logo" />
+        <span class="footer__name">Comfort Precinct Foundation</span>
+      </div>
+
+      <p class="footer__copy">&copy; 2026 Comfort Precinct Foundation. All rights reserved.</p>
+
+      <ul class="footer__links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+
+    </div>
+  </footer>
+
+</body>
+</html>
