@@ -76,6 +76,12 @@ These supporting pages complement the main website and provide additional inform
 
 The website is primarily built with HTML and CSS. JavaScript is used selectively to enhance the experience with additional interactivity and animations.
 
+## Recent Updates
+
+- Refined the website's user interface for a cleaner, more polished appearance.
+- Improved visual consistency across different sections of the website.
+- Made additional design refinements to enhance the overall user experience.
+  
 ## A Little Developer Note
 
 This project means a little more to me because it exists beyond the usual portfolio-project experience.
