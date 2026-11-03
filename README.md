@@ -48,7 +48,7 @@ The website is organized into four main pages:
 There are also two supporting pages linked from the homepage:
 
 - **Memorial:** A dedicated space honoring deceased members of the foundation.
-- **Event:** A page featuring news and updates concerning the organization.
+- **News:** A page featuring news and updates concerning the organization.
 
 These supporting pages complement the main website and provide additional information about the foundation and its community.
 
@@ -64,7 +64,7 @@ These supporting pages complement the main website and provide additional inform
 
 ## Built With
 
- HTML, CSS, and a splash of JavaScript. 😉
+ HTML,a little CSS, and a splash of JavaScript. 😉
 
 | Technology | Purpose |
 | --- | --- |
