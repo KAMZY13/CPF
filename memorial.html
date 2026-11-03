@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>In Remembrance — Comfort Precinct Foundation</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600;400i&display=swap" rel="stylesheet" />
+
+  <style>
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --charcoal: #1a1a1a;
+      --warm-mid: #1a3a2a;
+      --green: #2e7d32;
+      --green-light: #e8f5e9;
+      --green-border: #c8e6c9;
+      --muted: #5a6472;
+      --border: #e5e7eb;
+      --yellow: #d4a017;
+      --soft-bg: #f9f9f7;   /* very warm off-white for memorial tone */
+      --font-body: 'Inter', sans-serif;
+      --font-heading: 'Playfair Display', serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.9;
+      background: var(--soft-bg);
+      color: var(--charcoal);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    p { font-family: var(--font-body); font-weight: 400; line-height: 1.9; }
+    h1, h2, h3 { font-family: var(--font-heading); line-height: 1.2; letter-spacing: -0.01em; }
+
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: #1a1a1a;   /* dark / solemn — appropriate for memorial */
+      padding: 5rem 4rem 4.5rem;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    /* Soft vignette shape */
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .page-header__inner {
+      max-width: 680px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+      margin-bottom: 2.5rem;
+      transition: color 0.2s ease;
+    }
+
+    .back-link:hover { color: rgba(255, 255, 255, 0.85); }
+    .back-link::before { content: '←'; font-size: 0.95rem; }
+
+    /* Small dove symbol */
+    .page-header__symbol {
+      font-size: 2.2rem;
+      margin-bottom: 1.25rem;
+      display: block;
+      opacity: 0.7;
+    }
+
+    .page-header__label {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .page-header__heading {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      color: #ffffff;
+      margin-bottom: 1.25rem;
+      font-style: italic;
+    }
+
+    .page-header__sub {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.8;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* Thin gold rule below header text */
+    .page-header__rule {
+      width: 48px;
+      height: 2px;
+      background: var(--yellow);
+      margin: 1.75rem auto 0;
+      border-radius: 2px;
+      opacity: 0.6;
+    }
+
+   .page-placeholder {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.page-center {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+    /* ── MAIN ── */
+    .main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 5rem 4rem 7rem;
+    }
+
+
+    /* ── OPENING QUOTE / INTRO TEXT ── */
+    .memorial-intro {
+      max-width: 700px;
+      margin: 0 auto 5rem;
+      text-align: center;
+    }
+
+    .memorial-intro__text {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      line-height: 1.85;
+      color: #4b5563;
+    }
+
+    .memorial-intro__divider {
+      width: 40px;
+      height: 2px;
+      background: var(--yellow);
+      margin: 2rem auto;
+      border-radius: 2px;
+      opacity: 0.6;
+    }
+
+
+    /* ── PORTRAITS (side by side) ── */
+    .portraits {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      margin-bottom: 5rem;
+    }
+
+    .portrait-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      padding-bottom: 2rem;
+    }
+
+    /* Portrait image area */
+    .portrait-card__img-wrap {
+      width: 100%;
+      height: 0;
+      padding-bottom: 85%;
+      position: relative;
+      overflow: hidden;
+      background: #c8c8c8;  /* neutral grey as placeholder — grayscale feel */
+    }
+
+    .portrait-card__img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      /* Grayscale filter — respectful, memorial tone */
+      filter: grayscale(100%);
+      transition: filter 0.4s ease;
+    }
+
+    .portrait-card__img:hover {
+      filter: grayscale(40%);  /* subtle reveal on hover */
+    }
+
+    /* Placeholder shown when no photo added */
+    .portrait-card__placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      background: #d0d0d0;
+    }
+
+    .portrait-card__placeholder span {
+      font-size: 3rem;
+      opacity: 0.35;
+    }
+
+    .portrait-card__placeholder p {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #888;
+    }
+
+    /* Name tag below image */
+    .portrait-card__name-wrap {
+      padding: 1.5rem 1.5rem 0;
+    }
+
+    .portrait-card__name {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--charcoal);
+      margin-bottom: 0.25rem;
+    }
+
+    .portrait-card__dates {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: #9ca3af;
+      text-transform: uppercase;
+    }
+
+
+    /* ── TRIBUTES — individual write-ups ── */
+    .tributes {
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+      margin-bottom: 5rem;
+    }
+
+    .tribute {
+      display: grid;
+      grid-template-columns: 3px 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    /* Left vertical line accent */
+    .tribute__line {
+      width: 3px;
+      min-height: 100%;
+      background: linear-gradient(to bottom, var(--yellow), transparent);
+      border-radius: 2px;
+      align-self: stretch;
+    }
+
+    .tribute__content { flex: 1; }
+
+    .tribute__name {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.4rem;
+      color: var(--charcoal);
+      margin-bottom: 0.35rem;
+    }
+
+    .tribute__role {
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    .tribute__text {
+      font-size: 0.98rem;
+      line-height: 1.95;
+      color: #374151;
+    }
+
+    .tribute__text + .tribute__text {
+      margin-top: 1.1rem;
+    }
+
+
+    /* ── CLOSING REFLECTION ── */
+    .closing {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--yellow);
+      border-radius: 0 8px 8px 0;
+      padding: 2.25rem 2.5rem;
+      margin-bottom: 5rem;
+    }
+
+    .closing__text {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: #4b5563;
+    }
+
+    .closing__text + .closing__text { margin-top: 1rem; }
+
+    .closing__sign {
+      margin-top: 1.25rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #9ca3af;
+      letter-spacing: 0.06em;
+    }
+
+
+    /* ── MOMENTS & MEMORIES IMAGE GRID ── */
+    .memories {
+      margin-bottom: 4rem;
+    }
+
+    .memories__heading {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.3rem;
+      color: var(--charcoal);
+      margin-bottom: 0.5rem;
+    }
+
+    .memories__sub {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    /* 3-column photo grid */
+    .memories__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .memory-img {
+      width: 100%;
+      height: 0;
+      padding-bottom: 75%;
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #d0d0d0;
+      border: 1px solid var(--border);
+    }
+
+    .memory-img img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      /* Grayscale to match memorial tone */
+      filter: grayscale(100%);
+      transition: filter 0.35s ease, transform 0.35s ease;
+    }
+
+    .memory-img:hover img {
+      filter: grayscale(30%);
+      transform: scale(1.04);
+    }
+
+    /* Placeholder for memory images */
+    .memory-img__placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .memory-img__placeholder span { font-size: 1.8rem; opacity: 0.3; }
+    .memory-img__placeholder p {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #888;
+    }
+
+
+    /* ── REST IN PEACE CLOSER ── */
+    .rip-close {
+      text-align: center;
+      padding: 3rem 0 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .rip-close__symbol { font-size: 1.8rem; margin-bottom: 0.75rem; display: block; opacity: 0.5; }
+
+    .rip-close__text {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 1rem;
+      color: #9ca3af;
+    }
+
+
+    /* ── BACK LINK ── */
+    .bottom-nav {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .bottom-nav__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--green);
+      border: 1.5px solid var(--green-border);
+      background: var(--green-light);
+      padding: 0.7rem 1.5rem;
+      border-radius: 4px;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .bottom-nav__link:hover { background: #d4edda; border-color: var(--green); }
+    .bottom-nav__link::before { content: '←'; }
+
+
+    /* ── FOOTER ── */
+    .footer {
+      background: #1a1a1a;
+      padding: 2.5rem 4rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .footer__inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer__name { font-weight: 600; font-size: 0.85rem; color: rgba(255,255,255,0.65); }
+    .footer__copy { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
+
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .page-header { padding: 4rem 1.5rem 3.5rem; }
+      .main { padding: 4rem 1.5rem 5rem; }
+      .portraits { grid-template-columns: 1fr; gap: 1.5rem; }
+      .memories__grid { grid-template-columns: 1fr 1fr; }
+      .tribute { gap: 1.25rem; }
+      .footer { padding: 2rem 1.5rem; }
+      .footer__inner { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 480px) {
+      .memories__grid { grid-template-columns: 1fr; }
+      .closing { padding: 1.75rem 1.5rem; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ── PAGE HEADER ── -->
+  <header class="page-header">
+    <div class="page-header__inner">
+
+      <a href="index.html" class="back-link">Back to Home</a>
+
+       <div class="page-placeholder">
+             <img src="images/WhatsApp Image 2026-04-22 at 17.32.48.jpeg"
+                 alt="Prison Outreach Programme April 2026"
+                 class="page-center" />
+            </div>
+      <h1 class="page-header__heading">In Remembrance</h1>
+      <p class="page-header__sub">
+        Honouring the lives and legacies of two pioneer members of the
+        Comfort Precinct Foundation whose impact continues to shape who we are today.
+      </p>
+      <div class="page-header__rule"></div>
+
+    </div>
+  </header>
+
+
+  <!-- ── MAIN CONTENT ── -->
+  <main class="main">
+
+    <!-- Intro paragraph -->
+    <div class="memorial-intro">
+      <p class="memorial-intro__text">
+        With deep respect, we honour the lives and legacies of two pioneer members
+        of the Comfort Precinct Foundation whose impact continues to shape
+        who we are today.
+      </p>
+      <div class="memorial-intro__divider"></div>
+    </div>
+
+
+    <!-- Portrait photos side by side -->
+    <div class="portraits">
+
+      <!-- Portrait 1: Pa Michael Abiodun Sopitan -->
+      <div class="portrait-card">
+        <div class="portrait-card__img-wrap">
+          <div class="portrait-card__placeholder">
+            <img src="images/dr shopitan.jpeg" alt="Pa Michael Abiodun Sopitan" class="portrait-card__img" />
+          </div>
+        </div>
+        <div class="portrait-card__name-wrap">
+          <h3 class="portrait-card__name">Pa Michael Abiodun Sopitan</h3>
+          <p class="portrait-card__dates">Died — January 27, 2024</p>
+        </div>
+      </div>
+
+      <!-- Portrait 2: Comrade Benjamin Akinwunmi -->
+      <div class="portrait-card">
+        <div class="portrait-card__img-wrap">
+          <!--
+            Add photo:
+          -->
+          <div class="portrait-card__placeholder">
+           <img src="images/mr bao.jpeg" alt="Comrade Benjamin Akinwunmi" class="portrait-card__img" />
+          </div>
+        </div>
+        <div class="portrait-card__name-wrap">
+          <h3 class="portrait-card__name">Comrade Benjamin Adebowale Oluwaseyi Akinwunmi</h3>
+          <p class="portrait-card__dates">Died- July 28, 2025</p>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- Tribute write-ups -->
+    <div class="tributes">
+
+      <!-- Tribute 1 -->
+      <div class="tribute">
+        <div class="tribute__line"></div>
+        <div class="tribute__content">
+          <h2 class="tribute__name">Pa Michael Abiodun Sopitan</h2>
+          <span class="tribute__role">Former Deputy Director of Finance, Central Bank of Nigeria · Passed January 27, 2024</span>
+          <p class="tribute__text">
+            He was a man of quiet strength, discipline, and clarity. In the early years
+            of the Foundation, his financial guidance and steady presence helped build
+            the structure we stand on today.
+          </p>
+          <p class="tribute__text">
+            Beyond his professional excellence, he believed deeply in service — in
+            showing up, giving, and lifting others where it mattered.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tribute 2 -->
+      <div class="tribute">
+        <div class="tribute__line"></div>
+        <div class="tribute__content">
+          <h2 class="tribute__name">Comrade Benjamin Adebowale Oluwaseyi Akinwunmi</h2>
+          <span class="tribute__role">Broadcaster, Ogun State Broadcasting Corporation &amp; Ogun State Television · Passed July 28, 2025</span>
+          <p class="tribute__text">
+            He was a voice that carried truth, compassion, and conviction. Within the
+            Foundation, he used that voice to create awareness, bring people together,
+            and strengthen the mission of reaching those in need.
+          </p>
+          <p class="tribute__text">
+            His presence was not just heard, it was felt.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- Closing reflection -->
+    <div class="closing">
+      <p class="closing__text">
+        They were more than members. They were part of the foundation in every sense —
+        shaping its direction, strengthening its purpose, and giving of themselves
+        without hesitation.
+      </p>
+      <p class="closing__text">
+        Their lives remind us that impact is not measured by position, but by service —
+        by what is given, and who is lifted along the way.
+      </p>
+      <p class="closing__text">
+        May their souls rest in peace, and may their legacy continue through the
+        work we carry forward.
+      </p>
+      <p class="closing__sign">— Comfort Precinct Foundation</p>
+    </div>
+
+
+    <!-- Moments and Memories image grid -->
+    <div class="memories">
+      <h2 class="memories__heading">At The Funeral</h2>
+
+      <div class="memories__grid">
+
+        <!-- Memory 1 -->
+        <div class="memory-img">
+          <!--
+            Add photo: <img src="images/memory1.jpg" alt="Memory" />
+          -->
+          <div class="memory-img__placeholder">
+           <img src="images/WhatsApp Image 2026-04-22 at 16.55.24.jpeg" alt="Memory" />
+          </div>
+        </div>
+
+        <!-- Memory 2 -->
+        <div class="memory-img">
+          <div class="memory-img__placeholder">
+            <img src="images/WhatsApp Image 2026-04-22 at 16.55.21.jpeg" alt="Memory" />
+          </div>
+        </div>
+
+        <!-- Memory 3 -->
+        <div class="memory-img">
+          <div class="memory-img__placeholder">
+            <img src="images/WhatsApp Image 2026-04-22 at 16.55.14.jpeg" alt="Memory" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- Rest in peace closer -->
+    <div class="rip-close">
+      <span class="rip-close__symbol">🕊️</span>
+      <p class="rip-close__text">Rest in peace. Your legacy lives on.</p>
+    </div>
+
+
+    <!-- Back to home -->
+    <div class="bottom-nav">
+      <a href="index.html" class="bottom-nav__link">Back to Home</a>
+    </div>
+
+  </main>
+
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <span class="footer__name">Comfort Precinct Foundation</span>
+      <span class="footer__copy">&copy; 2026 Comfort Precinct Foundation. All rights reserved.</span>
+    </div>
+  </footer>
+
+</body>
+</html>
